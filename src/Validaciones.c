@@ -73,7 +73,7 @@ int GetInt(int *pResultado, char *mensaje, char *mensajeError, int minimo,
 		auxPresultado = atoi(stringNumero);
 
 		for (i = 0; i < cantidadChars; i++) {
-			if (stringNumero[i] > 47 && stringNumero[i] < 58
+			if (auxPresultado >= minimo && auxPresultado <= maximo
 					&& pResultado != NULL && mensaje != NULL
 					&& mensajeError != NULL && minimo <= maximo
 					&& reintentos >= 0) {

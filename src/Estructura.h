@@ -29,20 +29,24 @@ typedef struct {
 
 } eEstructura;
 
+int InicializarEstructura(eEstructura[], int, int);
 void HardcodeoEstructura(eEstructura[], int);
 
 int CargarEstructura(eEstructura[], int);
+int CrearAuxiliaresDeUnaEstructura( eEstructura*);
+int RemplazarAuxiliaresyCrearUnaEstructura(eEstructura[], eEstructura, int,
+		int);
+
+
 
 int BuscarEstadoLibreEstructura(eEstructura[], int, int);
 
 int MostrarListadoDeEstructura(eEstructura[], int, int);
+int MostrarUnaEstructuraDeUnArray(eEstructura[], int, int);
+int MostrarUnaEstructura(eEstructura*, int);
 
-int MostrarUnaEstructura(eEstructura [], int , int );
-
-int InicializarEstructura(eEstructura[], int, int);
 
 int OrdenarEstructuraPorStringAscAndIntAsc(eEstructura[], int);
-
 int OrdenarEstructuraPorFloatAsc(eEstructura[], int);
 
 int EliminarEstructura(eEstructura [], int , int );
@@ -55,6 +59,7 @@ int buscarIdDeUnaEstructura(eEstructura [], int ,
 		int );
 
 int generateEstructuraID();
+
 
 
 

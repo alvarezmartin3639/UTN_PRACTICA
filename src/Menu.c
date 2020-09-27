@@ -11,6 +11,7 @@
 #include <stdio.h>
 
 #include "FuncionesGenerales.h"
+#include "Validaciones.h"
 
 int MostrarMenu() {
 	int opcion;
@@ -49,12 +50,21 @@ int OrdenarEstructuraSubMenu() {
 }
 
 void CargarEstructuraMenu(eEstructura array[], int tam) {
+
+	int cantidadDeCargas;
+	int i;
 	limpiarPantalla();
+
 	printf("\n---------------------------------------------------------------"
 		   "\n|                       CARGAR ESTRUCTURA                     |"
 		   "\n---------------------------------------------------------------");
 
-	CargarEstructura(array, tam);
+		GetInt(&cantidadDeCargas,"\nCuantas cargas de datos vas a hacer? ","Error!!!",1,5,2);
+
+		for(i=0;i<cantidadDeCargas;i++){
+			  CargarEstructura(array, tam);
+		}
+
 
 }
 

@@ -50,7 +50,7 @@ void mostrarAuxiliares(char nombre[], float precio, int stock) {
  *
  */
 
-int RemplazarAuxiliaresyCrearUnaEstructura(eEstructura list[],
+int RemplazarAuxiliaresyCrearUnaEstructuraTest(eEstructura list[],
 		int indiceParaRemplazar, char auxNombre[], int auxEdad, float auxSueldo,
 		int valorOcupado) {
 	int retorno = 1;

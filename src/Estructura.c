@@ -23,10 +23,11 @@
 
 void HardcodeoEstructura(eEstructura array[], int tam) {
 	int legajo[8] = { 1012222, 101, 100, 101, 102, 103, 99, 93 };
-	int estado[8] = { OCUPADO, OCUPADO, OCUPADO, OCUPADO, OCUPADO, OCUPADO,
+	int estado[8] = { LIBRE, OCUPADO, OCUPADO, OCUPADO, OCUPADO, OCUPADO,
 	OCUPADO, OCUPADO };
 	char nombre[8][50] = { "C", "B", "A", "A", "R", "D", "A", "A" };
-	float sueldo[8] = { 30223200, 243.2, 2004, 2001, 2001, 2002, 2002.3, 2002.1 };
+	float sueldo[8] =
+			{ 30223200, 243.2, 2004, 2001, 2001, 2002, 2002.3, 2002.1 };
 	int edad[8] = { 18, 22, 21, 33, 11, 44, 55, 66 };
 
 	int i;
@@ -47,27 +48,70 @@ void HardcodeoEstructura(eEstructura array[], int tam) {
 
 int CargarEstructura(eEstructura array[], int tam) {
 
+	eEstructura auxEstructura;
+
 	int indiceDelEspacioLibre;
 	int retorno = ERROR;
-	char auxNombre[33];
-	int auxEdad;
-	float auxPrecio;
 
 	indiceDelEspacioLibre = BuscarEstadoLibreEstructura(array, tam, LIBRE);
 	if (indiceDelEspacioLibre != ERROR) {
 
-		cargarAuxiliares(auxNombre, &auxPrecio, &auxEdad);
-		mostrarAuxiliares(auxNombre, auxPrecio, auxEdad);
+		CrearAuxiliaresDeUnaEstructura(&auxEstructura);
+
+		MostrarUnaEstructura(&auxEstructura, OCUPADO);
 
 		if (confirmacionDeCambios() == OPCIONUNO) {
-			RemplazarAuxiliaresyCrearUnaEstructura(array, indiceDelEspacioLibre,
-					auxNombre, auxEdad, auxPrecio, OCUPADO);
+			RemplazarAuxiliaresyCrearUnaEstructura(array, auxEstructura, 1,
+			OCUPADO);
 		}
 	} else {
 		elejirEntreDosOpciones(
 				"\n\n****No hay espacio libre, presione 'ENTER' para volver al menú****",
 				"", "");
 	}
+
+	return retorno;
+}
+
+/*
+ * \brief
+ * \return
+ *
+ */
+
+int CrearAuxiliaresDeUnaEstructura(eEstructura *auxEstructura) {
+
+	GetChar(auxEstructura->nombre, "\nIngrese un nombre: ", "Error!!", 'a', 'z',
+			2);
+
+	GetFloat(&auxEstructura->sueldo, "\nIngrese un precio: ",
+			"Error precio invalido.", 1, 100000, 2);
+
+	GetInt(&auxEstructura->edad, "\nIngrese una edad: ", "Error edad invalido",
+			0, 100, 2);
+
+	auxEstructura->estado=OCUPADO;
+
+
+	return 0;
+}
+
+/*
+ * \brief
+ * \return
+ *
+ */
+
+int RemplazarAuxiliaresyCrearUnaEstructura(eEstructura list[],
+		eEstructura auxEstructura, int indiceParaRemplazar, int valorOcupado) {
+
+	int retorno = 1;
+
+	list[indiceParaRemplazar].edad = auxEstructura.edad;
+	list[indiceParaRemplazar].estado = valorOcupado;
+	list[indiceParaRemplazar].legajo = generateEstructuraID();
+	list[indiceParaRemplazar].sueldo = auxEstructura.sueldo;
+	strcpy(list[indiceParaRemplazar].nombre, auxEstructura.nombre);
 
 	return retorno;
 }
@@ -103,7 +147,7 @@ int MostrarListadoDeEstructura(eEstructura array[], int tam, int valorOcupado) {
 
 	for (i = 0; i < tam; i++) {
 
-		contadorCantidadDeEstadoOcupados = MostrarUnaEstructura(array, i,
+		contadorCantidadDeEstadoOcupados = MostrarUnaEstructuraDeUnArray(array, i,
 				valorOcupado);
 
 	}
@@ -120,15 +164,13 @@ int MostrarListadoDeEstructura(eEstructura array[], int tam, int valorOcupado) {
 
 }
 
-
-
 /*
  * \brief
  * \return
  *
  */
 
-int MostrarUnaEstructura(eEstructura array[], int indiceDeLaEstructura,
+int MostrarUnaEstructuraDeUnArray(eEstructura array[], int indiceDeLaEstructura,
 		int valorOcupado) {
 	int contadorCantidadDeEstadoOcupados;
 
@@ -136,17 +178,51 @@ int MostrarUnaEstructura(eEstructura array[], int indiceDeLaEstructura,
 
 	if (array[indiceDeLaEstructura].estado == valorOcupado) {
 		printf("\n\n\n========ESTRUCTURA %d========", indiceDeLaEstructura);
-		printf("\n--------------------------------------------------------"
-				"\n|LEGAJO        NOMBRE               SUELDO       ESTADO|"
-				"\n--------------------------------------------------------");
-		printf("\n %-14d %-16s %-14.2f %-10d \n\n", array[indiceDeLaEstructura].legajo,
+		printf(
+				"\n-----------------------------------------------------------"
+						"\n|LEGAJO        |NOMBRE               |SUELDO       |ESTADO|"
+						"\n-----------------------------------------------------------");
+		printf("\n %-13d %-20s %-14.2f %-10d \n\n",
+				array[indiceDeLaEstructura].legajo,
 				array[indiceDeLaEstructura].nombre,
-				array[indiceDeLaEstructura].sueldo,array[indiceDeLaEstructura].estado);
+				array[indiceDeLaEstructura].sueldo,
+				array[indiceDeLaEstructura].estado);
 
 		contadorCantidadDeEstadoOcupados++;
 	}
 	return contadorCantidadDeEstadoOcupados;
 }
+
+/*
+ * \brief
+ * \return
+ *
+ */
+
+int MostrarUnaEstructura(eEstructura *array,
+		int valorOcupado) {
+
+
+
+	if(array->estado==valorOcupado){
+		printf("\n\n\n========ESTRUCTURA========");
+			printf(
+					"\n-----------------------------------------------------------"
+							"\n|LEGAJO        |NOMBRE               |SUELDO       |ESTADO|"
+							"\n-----------------------------------------------------------");
+			printf("\n %-13d %-20s %-14.2f %-10d \n\n",
+					array->legajo,
+					array->nombre,
+					array->sueldo,
+					array->estado);
+
+
+	}
+
+	return OK;
+}
+
+
 
 /*
  * \brief
@@ -234,20 +310,22 @@ int EliminarEstructura(eEstructura array[], int tam, int valorOcupado) {
 	int legajoParaEliminar;
 	int indiceLegajoParaEliminar;
 
-	GetInt(&legajoParaEliminar,"Ingrese el numero de legajo a eliminar: ","Error legajo invalido ",0,200,2);
+	GetInt(&legajoParaEliminar, "Ingrese el numero de legajo a eliminar: ",
+			"Error legajo invalido ", 0, 200, 2);
 
 	indiceLegajoParaEliminar = BuscarEstructuraPorID(array, tam,
 			legajoParaEliminar);
 
 	if (indiceLegajoParaEliminar != ERROR) {
-		MostrarUnaEstructura(array,indiceLegajoParaEliminar,valorOcupado);
+		MostrarUnaEstructuraDeUnArray(array, indiceLegajoParaEliminar, valorOcupado);
 
 		if (confirmacionDeCambios() == ACEPTO) {
 			array[indiceLegajoParaEliminar].estado = LIBRE;
 			printf("\n*******Se eliminó con exito*******");
-		}else{
+		} else {
 			elejirEntreDosOpciones(
-							"\n\n****Legajo no borrado presione 'ENTER' para continuar.****",							"", "");
+					"\n\n****Legajo no borrado presione 'ENTER' para continuar.****",
+					"", "");
 		}
 
 	} else {
@@ -308,7 +386,7 @@ int ModificarEstructura(eEstructura arrayEstructura[], int tamEstructura,
 
 			limpiarPantalla();
 			printf("\n======ID %d ENCONTRADO======", valorBuscado);
-			MostrarUnaEstructura(arrayEstructura, indiceEncontrado,
+			MostrarUnaEstructuraDeUnArray(arrayEstructura, indiceEncontrado,
 					valorOcupado);
 			opcionElegidaMenu = ModificarEstructuraSubMenu();
 			switch (opcionElegidaMenu) {
@@ -364,7 +442,6 @@ int ModificarEstructura(eEstructura arrayEstructura[], int tamEstructura,
 
 }
 
-
 /**
  * \brief Busca un valor int en la variable int de una estructura.
  *
@@ -401,4 +478,5 @@ int generateEstructuraID() {
 	generarId++;
 	return generarId;
 }
+
 
