@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "Auxiliares.h"
 #include "FuncionesGenerales.h"
 #include "Menu.h"
 #include "Validaciones.h"

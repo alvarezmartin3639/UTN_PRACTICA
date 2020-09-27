@@ -29,8 +29,7 @@ int main(void) {
 	HardcodeoEstructura(estructura, TEMPLEADOS);
 
 
-	CargarEstructuraMenu(estructura, TEMPLEADOS);
-/*
+
 	do {
 		opcionElegida = MostrarMenu();
 		switch (opcionElegida) {
@@ -68,6 +67,6 @@ int main(void) {
 			printf("\nOPCION NO VALIDA...\n");
 			break;
 		}
-	} while (opcionElegida != 6)
-	*/
+	} while (opcionElegida != 6);
+
 }

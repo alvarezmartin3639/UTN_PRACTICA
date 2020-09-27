@@ -64,8 +64,6 @@ void CargarEstructuraMenu(eEstructura array[], int tam) {
 		for(i=0;i<cantidadDeCargas;i++){
 			  CargarEstructura(array, tam);
 		}
-
-
 }
 
 void MostrarEstructuraMenu(eEstructura array[], int tam) {
