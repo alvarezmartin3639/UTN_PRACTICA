@@ -12,12 +12,12 @@
 
 int MostrarMenu();
 int OrdenarEstructuraSubMenu();
-void CargarEstructuraMenu(eEstructura [], int );
-void MostrarEstructuraMenu(eEstructura [], int );
-void OrdenarEstructuraPorLegajoAscDespuesPorNombreAscSubMenu(eEstructura [], int );
-void OrdenarEstructuraPorSueldoSubMenu(eEstructura [], int );
-void EliminarEstructuraMenu(eEstructura [], int , int );
-void ModificarEstructuraMenu(eEstructura [], int , int ,int );
+void CargarEstructuraMenu(eEstructura[], int);
+void MostrarEstructuraMenu(eEstructura[], int);
+void OrdenarEstructuraPorLegajoAscDespuesPorNombreAscSubMenu(eEstructura[], int);
+void OrdenarEstructuraPorSueldoSubMenu(eEstructura[], int);
+void EliminarEstructuraMenu(eEstructura[], int, int);
+void ModificarEstructuraMenu(eEstructura[], int, int, int);
 int ModificarEstructuraSubMenu();
 
 #endif /* MENU_H_ */

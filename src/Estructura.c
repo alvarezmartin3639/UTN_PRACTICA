@@ -48,27 +48,43 @@ void HardcodeoEstructura(eEstructura array[], int tam) {
 int CargarEstructura(eEstructura array[], int tam) {
 
 	eEstructura auxEstructura;
-
 	int indiceDelEspacioLibre;
 	int retorno = ERROR;
+	char deseaContinuar='y';
 
-	indiceDelEspacioLibre = BuscarEstadoLibreEstructura(array, tam, LIBRE);
-	if (indiceDelEspacioLibre != ERROR) {
+	do{
+		limpiarPantalla();
+			printf("--------============== CARGAR ESTRUCTURA ==============--------");
 
-		CrearAuxiliaresDeUnaEstructura(&auxEstructura);
+			indiceDelEspacioLibre = BuscarEstadoLibreEstructura(array, tam, LIBRE);
+			if (indiceDelEspacioLibre != ERROR) {
 
-		MostrarUnaEstructura(&auxEstructura, OCUPADO);
+				CrearAuxiliaresDeUnaEstructura(&auxEstructura);
+				MostrarUnaEstructura(&auxEstructura, OCUPADO);
 
-		if (confirmacionDeCambios() == OPCIONUNO) {
-			RemplazarAuxiliaresyCrearUnaEstructura(array, auxEstructura, 1,
-			OCUPADO);
-		}
-	} else {
-		elejirEntreDosOpciones(
-				"\n\n****No hay espacio libre, presione 'ENTER' para volver al menú****",
-				"", "");
-	}
+				if (confirmacionDeCambios() == OPCIONUNO) {
+					RemplazarAuxiliaresyCrearUnaEstructura(array, auxEstructura, 1,
+					OCUPADO);
 
+					if(elejirEntreDosOpciones("\nDeseas continuar ingresando datos?(y/n): ","y","n")==NOACEPTO){
+
+						deseaContinuar='n';
+						retorno = OK;
+						return retorno;
+						printf("RETORNO");
+					}
+
+				}
+			} else {
+				elejirEntreDosOpciones(
+						"\n\n****No hay espacio libre, presione 'ENTER' para volver al menú****",
+						"", "");
+				return retorno;
+			}
+	}while(deseaContinuar=='y');
+
+
+	retorno = OK;
 	return retorno;
 }
 
@@ -82,16 +98,12 @@ int CrearAuxiliaresDeUnaEstructura(eEstructura *auxEstructura) {
 
 	GetChar(auxEstructura->nombre, "\nIngrese un nombre: ", "Error!!", 'a', 'z',
 			2);
-
 	GetFloat(&auxEstructura->sueldo, "\nIngrese un precio: ",
 			"Error precio invalido.", 1, 100000, 2);
-
 	GetInt(&auxEstructura->edad, "\nIngrese una edad: ", "Error edad invalido",
 			0, 100, 2);
 
-	auxEstructura->estado=OCUPADO;
-
-
+	auxEstructura->estado = OCUPADO;
 	return 0;
 }
 
@@ -143,24 +155,19 @@ int BuscarEstadoLibreEstructura(eEstructura array[], int tam, int valorLibre) {
 int MostrarListadoDeEstructura(eEstructura array[], int tam, int valorOcupado) {
 	int i;
 	int contadorCantidadDeEstadoOcupados;
+	int retorno = ERROR;
 
 	for (i = 0; i < tam; i++) {
-
-		contadorCantidadDeEstadoOcupados = MostrarUnaEstructuraDeUnArray(array, i,
-				valorOcupado);
-
+		contadorCantidadDeEstadoOcupados = MostrarUnaEstructuraDeUnArray(array,
+				i, valorOcupado);
 	}
+
 	if (contadorCantidadDeEstadoOcupados == 0) {
-		printf("\n--------------------------------------------------------"
-				"\n|Error: no existen datos cargados,cargelos Y reintente.|"
-				"\n--------------------------------------------------------");
+		printf("****Error, no hay espacio!!!****");
 	}
-
 	elejirEntreDosOpciones("\n\n****Presione 'enter' para continuar****", "",
-			"NOENTER");
-
-	return OK;
-
+			"");
+	return retorno;
 }
 
 /*
@@ -198,30 +205,21 @@ int MostrarUnaEstructuraDeUnArray(eEstructura array[], int indiceDeLaEstructura,
  *
  */
 
-int MostrarUnaEstructura(eEstructura *array,
-		int valorOcupado) {
+int MostrarUnaEstructura(eEstructura *array, int valorOcupado) {
 
-
-
-	if(array->estado==valorOcupado){
-		printf("\n\n\n========ESTRUCTURA========");
-			printf(
-					"\n-----------------------------------------------------------"
-							"\n|LEGAJO        |NOMBRE               |SUELDO       |ESTADO|"
-							"\n-----------------------------------------------------------");
-			printf("\n %-13d %-20s %-14.2f %-10d \n\n",
-					array->legajo,
-					array->nombre,
-					array->sueldo,
-					array->estado);
-
-
+	limpiarPantalla();
+	if (array->estado == valorOcupado) {
+		printf("\n\n\n--------============== ESTRUCTURA ==============--------");
+		printf(
+				"\n-----------------------------------------------------------"
+						"\n|LEGAJO        |NOMBRE               |SUELDO       |ESTADO|"
+						"\n-----------------------------------------------------------");
+		printf("\n %-13d %-20s %-14.2f %-10d \n\n", array->legajo,
+				array->nombre, array->sueldo, array->estado);
 	}
 
 	return OK;
 }
-
-
 
 /*
  * \brief
@@ -316,7 +314,8 @@ int EliminarEstructura(eEstructura array[], int tam, int valorOcupado) {
 			legajoParaEliminar);
 
 	if (indiceLegajoParaEliminar != ERROR) {
-		MostrarUnaEstructuraDeUnArray(array, indiceLegajoParaEliminar, valorOcupado);
+		MostrarUnaEstructuraDeUnArray(array, indiceLegajoParaEliminar,
+				valorOcupado);
 
 		if (confirmacionDeCambios() == ACEPTO) {
 			array[indiceLegajoParaEliminar].estado = LIBRE;
@@ -388,6 +387,7 @@ int ModificarEstructura(eEstructura arrayEstructura[], int tamEstructura,
 			MostrarUnaEstructuraDeUnArray(arrayEstructura, indiceEncontrado,
 					valorOcupado);
 			opcionElegidaMenu = ModificarEstructuraSubMenu();
+
 			switch (opcionElegidaMenu) {
 			case 1:
 				GetChar(arrayEstructura[indiceEncontrado].nombre,
@@ -415,27 +415,27 @@ int ModificarEstructura(eEstructura arrayEstructura[], int tamEstructura,
 				if (elejirEntreDosOpcionesConPuntero(auxEstado,
 						"Ingrese 'baja' para dar de baja o 'alta' para dar de alta",
 						"baja", "alta") == OPCIONUNO) {
-
 					arrayEstructura[indiceEncontrado].estado = LIBRE;
 					break;
-
 				}
+
 				if (confirmacionDeCambios() == ACEPTO) {
-
 					arrayEstructura[indiceEncontrado].estado = OCUPADO;
-
 				}
-				break;
 
+				break;
 			}
 		} while (opcionElegidaMenu != 5);
+
 	} else {
+
 		elejirEntreDosOpciones(
 				"****Id no encontrado!!!, presione 'ENTER' para ser redirigido al menú",
 				"", "");
-		return retorno;
 
+		return retorno;
 	}
+
 	retorno = OK;
 	return retorno;
 
@@ -477,5 +477,4 @@ int generateEstructuraID() {
 	generarId++;
 	return generarId;
 }
-
 

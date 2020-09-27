@@ -14,40 +14,6 @@
 
 #include "Cadenas.h"
 
-
-
-/**
- * \brief Valida un valor numerico.
- *
- * \param int *pResultado                  Puntero a la variable donde guardar el numero validado.
- * \param char *mensaje	                   El mensaje para imprimir al usuario.
- * \param char *mensajeError               El mensaje a mostrar si la validacion fue incorrecta.
- * \return 0							   Cuando la validación fue correcta.
- * \return -1                              Cuando la validación fue incorrecta.
-
-int GetInt(int *pResultado, char *mensaje, char *mensajeError, int minimo,
-		int maximo, int reintentos) {
-	int retorno = -1;
-	int bufferInt;
-	if (pResultado != NULL && mensaje != NULL && mensajeError != NULL
-			&& minimo <= maximo && reintentos >= 0) {
-		do {
-			printf("%s", mensaje);
-			scanf("%d", &bufferInt);
-			if (bufferInt >= minimo && bufferInt <= maximo) {
-				*pResultado = bufferInt;
-				retorno = 0;
-				break;
-			} else {
-				printf("%s", mensajeError);
-				reintentos--;
-			}
-		} while (reintentos >= 0);
-	}
-	return retorno;
-}
-*/
-
 /**
  * \brief Valida un valor numerico.
  *
@@ -114,7 +80,7 @@ int GetChar(char *pResultado, char *mensaje, char *mensajeError, char minimo,
 		int i;
 		char auxPresultado[40];
 		int cantidadChars;
-		int retorno=ERROR;
+		int retorno = ERROR;
 
 		contadorDeCharsValidados = 0;
 
@@ -147,7 +113,6 @@ int GetChar(char *pResultado, char *mensaje, char *mensajeError, char minimo,
 	return 1;
 }
 
-
 /**
  * \brief Valida un numero decimal.
  *
@@ -164,38 +129,37 @@ int GetFloat(float *pResultado, char *mensaje, char *mensajeError, int minimo,
 	char buffer[100];
 	double value;
 	char *endptr;
-	int retorno=ERROR;
+	int retorno = ERROR;
 
 	fgets(buffer, sizeof(buffer), stdin);
 
-	do
-	{
-		printf("%s\n",mensaje);
+	do {
+		printf("\n%s", mensaje);
 		fgets(buffer, sizeof(buffer), stdin);
 
-		if (buffer== NULL){
+		if (buffer == NULL) {
 			return -1; /* Unexpected error */
 		}
 
-			value = strtod(buffer, &endptr);
-			if (((*endptr == '\0') || (isspace(*endptr) != 0))
-					&& (value - (int) value != 0) && minimo <= maximo && reintentos >= 0) {
-				*pResultado = value;
-				return 0;
+		value = strtod(buffer, &endptr);
+		if (((*endptr == '\0') || (isspace(*endptr) != 0))
+				&& (value - (int) value != 0) && minimo <= maximo
+				&& reintentos >= 0) {
+			*pResultado = value;
+			return 0;
 
-			}else
-			{
-				printf("\n\n****%s, elija un numero decimal entre %d y %d, quedan %d reintentos****\n",
-								mensajeError, minimo, maximo, reintentos);
-						reintentos--;
-			}
+		} else {
+			printf(
+					"\n\n****%s, elija un numero decimal entre %d y %d, quedan %d reintentos****\n",
+					mensajeError, minimo, maximo, reintentos);
+			reintentos--;
+		}
 
+	} while (reintentos >= 0);
 
-	}while(reintentos>=0);
-
-
-	printf("\n\n****Se acabaron los reintentos vuelva a intentarlo mas tarde.****");
-		return retorno;
+	printf(
+			"\n\n****Se acabaron los reintentos vuelva a intentarlo mas tarde.****");
+	return retorno;
 
 }
 

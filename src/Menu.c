@@ -1,4 +1,3 @@
-
 /*
  * Menu.c
  *
@@ -12,34 +11,40 @@
 
 #include "FuncionesGenerales.h"
 #include "Validaciones.h"
-
+/*
+ * \brief
+ * \return
+ *
+ */
 int MostrarMenu() {
 	int opcion;
 
 	limpiarPantalla();
 	printf("\n--------------------------------------------------------------"
-		   "\n|                       MENU PRINCIPAL                       |"
-		   "\n--------------------------------------------------------------");
-	printf("\n1- Cargar estructura.");
-	printf("\n2- Mostrar listado de estructura.");
-	printf("\n3- Ordenar estructura ");
-	printf("\n4- Eliminar estructura.");
-	printf("\n5- Modificar estructura. ");
-	printf("\n6- Salir."
+			"\n|                       MENU PRINCIPAL                       |"
 			"\n--------------------------------------------------------------");
+	printf("\n[1] Cargar estructura.");
+	printf("\n[2] Mostrar listado de estructura.");
+	printf("\n[3] Ordenar estructura ");
+	printf("\n[4] Eliminar estructura.");
+	printf("\n[5] Modificar estructura. ");
+	printf("\n[6] Salir."
+			"\n-------------------------------------------------------------");
 
 	printf("\n\nElije una opcion: ");
 	scanf("%d", &opcion);
 
 	return opcion;
 }
-
+/*
+ * \brief
+ * \return
+ *
+ */
 int OrdenarEstructuraSubMenu() {
 	int opcion;
 	limpiarPantalla();
-	printf("\n--------------------------------------------------------------"
-		   "\n|                      ORDENAR EMPELADOS                     |"
-		   "\n--------------------------------------------------------------");
+	printf("=======================ORDENAR EMPLEADOS=======================");
 
 	printf("\n1- Ordenar estructura por nombre");
 	printf("\n2- Ordenar estructura por legajo");
@@ -48,65 +53,94 @@ int OrdenarEstructuraSubMenu() {
 
 	return opcion;
 }
-
+/*
+ * \brief
+ * \return
+ *
+ */
 void CargarEstructuraMenu(eEstructura array[], int tam) {
 
 	int cantidadDeCargas;
 	int i;
+
 	limpiarPantalla();
+	/*printf(
+			"\n---------------------------------------------------------------"
+					"\n|                       CARGAR ESTRUCTURA                     |"
+					"\n---------------------------------------------------------------");
+*/
+	printf("--------============== CARGAR ESTRUCTURA ==============--------");
 
-	printf("\n---------------------------------------------------------------"
-		   "\n|                       CARGAR ESTRUCTURA                     |"
-		   "\n---------------------------------------------------------------");
+		CargarEstructura(array, tam);
 
-		GetInt(&cantidadDeCargas,"\nCuantas cargas de datos vas a hacer? ","Error!!!",1,5,2);
-
-		for(i=0;i<cantidadDeCargas;i++){
-			  CargarEstructura(array, tam);
-		}
 }
-
+/*
+ * \brief
+ * \return
+ *
+ */
 void MostrarEstructuraMenu(eEstructura array[], int tam) {
+
 	limpiarPantalla();
-	printf("\n--------------------------------------------------------------"
-		   "\n|                       MOSTRAR ESTRUCTURA                   |"
-		   "\n--------------------------------------------------------------");
+	printf("--------============== MOSTRAR ESTRUCTURA ==============--------");
 	MostrarListadoDeEstructura(array, tam, OCUPADO);
 
 }
-
-void OrdenarEstructuraPorLegajoAscDespuesPorNombreAscSubMenu(eEstructura array[], int tam) {
+/*
+ * \brief
+ * \return
+ *
+ */
+void OrdenarEstructuraPorLegajoAscDespuesPorNombreAscSubMenu(
+		eEstructura array[], int tam) {
 	limpiarPantalla();
-	printf("\n--------------------------------------------------------------"
-		   "\n|             ORDENAR ESTRUCTURA POR NOMBRE                  |"
-		   "\n--------------------------------------------------------------");
+	printf("--------============== ORDENAR ESTRUCTURA POR NOMBRE ==============--------");
 	OrdenarEstructuraPorStringAscAndIntAsc(array, tam);
 
 }
+/*
+ * \brief
+ * \return
+ *
+ */
 void OrdenarEstructuraPorSueldoSubMenu(eEstructura array[], int tam) {
 	limpiarPantalla();
-	printf("\n--------------------------------------------------------------"
-		   "\n|             ORDENAR ESTRUCTURA POR SUELDO                  |"
-		   "\n--------------------------------------------------------------");
+	printf("--------============== ORDENAR ESTRUCTURA POR SUELDO ==============--------");
 	OrdenarEstructuraPorFloatAsc(array, tam);
 
 }
+/*
+ * \brief
+ * \return
+ *
+ */
 
 void EliminarEstructuraMenu(eEstructura array[], int tam, int valorOcupado) {
 	limpiarPantalla();
-	printf("\n--------------------------------------------------------------"
-		   "\n|                    ELIMINAR ESTRUCTURA                     |"
-		   "\n--------------------------------------------------------------");
-	EliminarEstructura(array, tam,valorOcupado);
+	printf("--------============== ELIMINAR ESTRUCTURA ==============--------");
+	EliminarEstructura(array, tam, valorOcupado);
 }
 
-void ModificarEstructuraMenu(eEstructura array[], int tam, int valorOcupado,int valorLibre) {
+/*
+ * \brief
+ * \return
+ *
+ */
+
+void ModificarEstructuraMenu(eEstructura array[], int tam, int valorOcupado,
+		int valorLibre) {
+
 	limpiarPantalla();
-	printf("\n--------------------------------------------------------------"
-		   "\n|                    MODIFICAR ESTRUCTURA                    |"
-		   "\n--------------------------------------------------------------");
-	ModificarEstructura(array, tam,valorOcupado,valorLibre);
+	printf("--------============== MODIFICAR ESTRUCTURA ==============--------");
+	ModificarEstructura(array, tam, valorOcupado, valorLibre);
+
 }
+
+/*
+ * \brief
+ * \return
+ *
+ */
 
 int ModificarEstructuraSubMenu() {
 	int opcionElegida;

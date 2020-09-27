@@ -25,10 +25,7 @@ int main(void) {
 
 	InicializarEstructura(estructura, TEMPLEADOS, LIBRE);
 
-
 	HardcodeoEstructura(estructura, TEMPLEADOS);
-
-
 
 	do {
 		opcionElegida = MostrarMenu();
@@ -46,7 +43,8 @@ int main(void) {
 			opcionElegidaSubMenu = OrdenarEstructuraSubMenu();
 			switch (opcionElegidaSubMenu) {
 			case 1:
-				OrdenarEstructuraPorLegajoAscDespuesPorNombreAscSubMenu(estructura, TEMPLEADOS);
+				OrdenarEstructuraPorLegajoAscDespuesPorNombreAscSubMenu(
+						estructura, TEMPLEADOS);
 				break;
 			case 2:
 				OrdenarEstructuraPorSueldoSubMenu(estructura, TEMPLEADOS);
@@ -56,11 +54,11 @@ int main(void) {
 			break;
 
 		case 4:
-			EliminarEstructuraMenu(estructura, TEMPLEADOS,OCUPADO);
+			EliminarEstructuraMenu(estructura, TEMPLEADOS, OCUPADO);
 			break;
 
 		case 5:
-			ModificarEstructuraMenu(estructura, TEMPLEADOS,OCUPADO,LIBRE);
+			ModificarEstructuraMenu(estructura, TEMPLEADOS, OCUPADO, LIBRE);
 			break;
 
 		default:

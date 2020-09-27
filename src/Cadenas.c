@@ -13,7 +13,7 @@
 
 void FgetsComprimido(char *pResultado, char *mensaje, int cantidadDeLetras) {
 
-	printf("\n%s",mensaje);
+	printf("\n%s", mensaje);
 	//puts(mensaje);
 	fflush(stdin);
 	fgets(pResultado, cantidadDeLetras, stdin);
