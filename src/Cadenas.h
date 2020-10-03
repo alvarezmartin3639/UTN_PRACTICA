@@ -16,6 +16,7 @@ void ConvertirTodoMinuscula(char[], int);
 
 void ConvertirPrimerLetraEnMayuscula(char[], int);
 
+void RepetirCadena( char mensajeParaRepetir[], int numeroDeVecesParaRepetir);
 
 
 #endif /* CADENAS_H_ */

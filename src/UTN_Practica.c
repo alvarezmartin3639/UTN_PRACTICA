@@ -10,10 +10,9 @@
 
 #include <stdio.h>
 
-#include "Estructura.h"
+#include "Cliente.h"
 #include "FuncionesGenerales.h"
-#include "Menu.h"
-#include "Validaciones.h"
+#include "Mascota.h"
 
 int main(void) {
 
@@ -21,21 +20,30 @@ int main(void) {
 
 	int opcionElegida;
 	int opcionElegidaSubMenu;
-	eEstructura estructura[TEMPLEADOS];
+	eMascota mascotas[TMASCOTAS];
+	eCliente clientes[TCLIENTES];
 
-	InicializarEstructura(estructura, TEMPLEADOS, LIBRE);
+	InicializarMascota(mascotas, TMASCOTAS, LIBRE);
+	InicializarCliente(clientes,TCLIENTES,LIBRE);
 
-	HardcodeoEstructura(estructura, TEMPLEADOS);
+	HardcodeoMascota(mascotas, TMASCOTAS);
+	HardcodeoCliente(clientes,TCLIENTES);
+
+
+	//AsociarMascotaConCliente(&auxmascota,clientes,TCLIENTES);
+	//ModificarMascota(mascotas,TMASCOTAS,clientes,TCLIENTES,OCUPADO,LIBRE);
+
+/*
 
 	do {
 		opcionElegida = MostrarMenu();
 		switch (opcionElegida) {
 		case 1:
-			CargarEstructuraMenu(estructura, TEMPLEADOS);
+			CargarEstructuraMenu(clientes, TCLIENTES);
 			break;
 
 		case 2:
-			MostrarEstructuraMenu(estructura, TEMPLEADOS);
+			MostrarEstructuraMenu(clientes, TCLIENTES);
 			break;
 
 		case 3:
@@ -44,27 +52,28 @@ int main(void) {
 			switch (opcionElegidaSubMenu) {
 			case 1:
 				OrdenarEstructuraPorLegajoAscDespuesPorNombreAscSubMenu(
-						estructura, TEMPLEADOS);
+						clientes, TCLIENTES);
 				break;
 			case 2:
-				OrdenarEstructuraPorSueldoSubMenu(estructura, TEMPLEADOS);
+				OrdenarEstructuraPorSueldoSubMenu(clientes, TCLIENTES);
 				break;
 			}
 
 			break;
 
 		case 4:
-			EliminarEstructuraMenu(estructura, TEMPLEADOS, OCUPADO);
+			EliminarEstructuraMenu(clientes, TCLIENTES, OCUPADO);
 			break;
 
 		case 5:
-			ModificarEstructuraMenu(estructura, TEMPLEADOS, OCUPADO, LIBRE);
+			ModificarEstructuraMenu(clientes, TCLIENTES, OCUPADO, LIBRE);
 			break;
 
 		default:
-			printf("\nOPCION NO VALIDA...\n");
+			printf("\n****OPCION NO VALIDA...****\n");
 			break;
 		}
 	} while (opcionElegida != 6);
 
+	*/
 }

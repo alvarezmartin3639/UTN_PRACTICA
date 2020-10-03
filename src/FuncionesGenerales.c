@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "Estructura.h"
+#include "Mascota.h"
 
 /**
  * \brief Soluciona error dentro de eclipse
@@ -33,7 +33,7 @@ void SolucionErrorDeConsola() {
  * return void
  */
 
-void limpiarPantalla() {
+void LimpiarPantalla() {
 	printf("\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n");
 }
 
@@ -47,7 +47,7 @@ void limpiarPantalla() {
  * \return -333                            Cuando el usuario rechazó(Eligio condicionParaSalir).
  */
 
-int elejirEntreDosOpciones(char mensaje[], char condicionParaContinuar[],
+int ElejirEntreDosOpciones(char mensaje[], char condicionParaContinuar[],
 		char condicionParaSalir[]) {
 
 	int retorno;
@@ -93,20 +93,7 @@ int elejirEntreDosOpcionesConPuntero(char *pResultado, char *mensaje,
 
 	return retorno;
 }
-/**
- * \brief Hace esperar al usuario tres segundos
- *
- * \param char mensaje[]				   El mensaje para imprimir al usuario.
- * \return void
 
-
-void textAndSleep(char *mensaje, int sleepTime) {
-
-	puts(mensaje);
-	Sleep(sleepTime);
-
-}
-*/
 /**
  * \brief Confirma los cambios
  *
@@ -114,10 +101,10 @@ void textAndSleep(char *mensaje, int sleepTime) {
  * \return int retorno   La respuesta del usuario.
  */
 
-int confirmacionDeCambios() {
+int ConfirmacionDeCambios() {
 	int respuestaDeseaContinuar;
 	int retorno;
-	respuestaDeseaContinuar = elejirEntreDosOpciones(
+	respuestaDeseaContinuar = ElejirEntreDosOpciones(
 			"\n\n-------------------------------------------------"
 					"\nESTOS CAMBIOS NO SE PUEDEN DESHACER, ESTÁ SEGURO "
 					"\nQUE DESEA CONTINUAR?(si/no)"
@@ -130,8 +117,8 @@ int confirmacionDeCambios() {
 	}
 	if (respuestaDeseaContinuar == NOACEPTO) {
 
-		limpiarPantalla();
-	  elejirEntreDosOpciones("\n****Cambios no guardados, presione 'ENTER' para continuar.****","","exit");
+		LimpiarPantalla();
+	  ElejirEntreDosOpciones("\n****Cambios no guardados, presione 'ENTER' para continuar.****","","exit");
 		retorno = NOACEPTO;
 	}
 
@@ -156,6 +143,19 @@ int ContarCaracteresDeUnEntero() {
 	printf("Tiene %u caracteres", contador);
 	getch();
 	return contador;
+
+}
+
+void PresionarEnterParaContinuar(){
+
+
+	char bufferUsuario[10];
+	do{
+		FgetsComprimido(bufferUsuario,"\n****Presione 'enter' para continuar*****",10);
+
+	}while(strcmp(bufferUsuario,"")!=0);
+
+
 
 }
 

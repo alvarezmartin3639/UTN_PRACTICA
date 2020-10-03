@@ -8,7 +8,23 @@
 #ifndef FUNCIONESGENERALES_H_
 #define FUNCIONESGENERALES_H_
 
-int elejirEntreDosOpciones(char mensaje[], char condicionParaContinuar[],
+#include "Cadenas.h"
+#include "Validaciones.h"
+
+#define TMASCOTAS 8
+#define TCLIENTES 8
+#define OK 1
+#define ACEPTO 1
+#define NOACEPTO 0
+#define OPCIONUNO 1
+#define OPCIONDOS 0
+#define LIBRE 0
+#define BAD 0
+#define OCUPADO 1
+#define ERROR -666
+#define INDIFERENTE -1
+
+int ElejirEntreDosOpciones(char mensaje[], char condicionParaContinuar[],
 		char condicionParaSalir[]);
 
 int elejirEntreDosOpcionesConPuntero(char *pResultado, char *mensaje,
@@ -18,12 +34,13 @@ int elejirEntreDosOpcionesConPuntero(char *pResultado, char *mensaje,
 
 void SolucionErrorDeConsola();
 
-void limpiarPantalla();
+void LimpiarPantalla();
 
-int confirmacionDeCambios();
+int ConfirmacionDeCambios();
 
 int ContarCaracteresDeUnEntero();
 
 int ContarCaracteresDeUnFlotante(float num);
 
+void PresionarEnterParaContinuar();
 #endif /* FUNCIONESGENERALES_H_ */

@@ -52,3 +52,15 @@ void ConvertirPrimerLetraEnMayuscula(char cadena[], int tam) {
 	}
 
 }
+
+void RepetirCadena(char mensajeParaRepetir[], int numeroDeVecesParaRepetir) {
+
+	int contadorDeRepeticiones;
+
+	contadorDeRepeticiones = 0;
+
+	while (contadorDeRepeticiones != numeroDeVecesParaRepetir) {
+		puts(mensajeParaRepetir);
+		contadorDeRepeticiones++;
+	}
+}

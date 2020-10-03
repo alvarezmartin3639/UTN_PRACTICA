@@ -5,15 +5,13 @@
  *      Author: kenyn
  */
 
-#include "Validaciones.h"
 
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "Cadenas.h"
-
+#include "FuncionesGenerales.h"
 /**
  * \brief Valida un valor numerico.
  *

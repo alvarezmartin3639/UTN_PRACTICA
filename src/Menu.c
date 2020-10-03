@@ -9,8 +9,9 @@
 
 #include <stdio.h>
 
+#include "ClienteMascota.h"
 #include "FuncionesGenerales.h"
-#include "Validaciones.h"
+
 /*
  * \brief
  * \return
@@ -19,7 +20,7 @@
 int MostrarMenu() {
 	int opcion;
 
-	limpiarPantalla();
+	LimpiarPantalla();
 	printf("\n--------------------------------------------------------------"
 			"\n|                       MENU PRINCIPAL                       |"
 			"\n--------------------------------------------------------------");
@@ -43,7 +44,7 @@ int MostrarMenu() {
  */
 int OrdenarEstructuraSubMenu() {
 	int opcion;
-	limpiarPantalla();
+	LimpiarPantalla();
 	printf("=======================ORDENAR EMPLEADOS=======================");
 
 	printf("\n1- Ordenar estructura por nombre");
@@ -58,20 +59,14 @@ int OrdenarEstructuraSubMenu() {
  * \return
  *
  */
-void CargarEstructuraMenu(eEstructura array[], int tam) {
+void CargarEstructuraMenu(eCliente array[], int tam) {
 
-	int cantidadDeCargas;
-	int i;
 
-	limpiarPantalla();
-	/*printf(
-			"\n---------------------------------------------------------------"
-					"\n|                       CARGAR ESTRUCTURA                     |"
-					"\n---------------------------------------------------------------");
-*/
+	LimpiarPantalla();
+
 	printf("--------============== CARGAR ESTRUCTURA ==============--------");
 
-		CargarEstructura(array, tam);
+		AltaDeCliente(array, tam);
 
 }
 /*
@@ -79,11 +74,11 @@ void CargarEstructuraMenu(eEstructura array[], int tam) {
  * \return
  *
  */
-void MostrarEstructuraMenu(eEstructura array[], int tam) {
+void MostrarEstructuraMenu(eCliente array[], int tam) {
 
-	limpiarPantalla();
-	printf("--------============== MOSTRAR ESTRUCTURA ==============--------");
-	MostrarListadoDeEstructura(array, tam, OCUPADO);
+	LimpiarPantalla();
+	printf("--------============== MOSTRAR LISTADO DE MASCOTA ==============--------");
+	MostrarListadoDeCliente(array, tam, OCUPADO);
 
 }
 /*
@@ -92,10 +87,10 @@ void MostrarEstructuraMenu(eEstructura array[], int tam) {
  *
  */
 void OrdenarEstructuraPorLegajoAscDespuesPorNombreAscSubMenu(
-		eEstructura array[], int tam) {
-	limpiarPantalla();
+		eCliente array[], int tam) {
+	LimpiarPantalla();
 	printf("--------============== ORDENAR ESTRUCTURA POR NOMBRE ==============--------");
-	OrdenarEstructuraPorStringAscAndIntAsc(array, tam);
+	OrdenarStringAscenIntAscenUnCliente(array,tam);
 
 }
 /*
@@ -103,10 +98,10 @@ void OrdenarEstructuraPorLegajoAscDespuesPorNombreAscSubMenu(
  * \return
  *
  */
-void OrdenarEstructuraPorSueldoSubMenu(eEstructura array[], int tam) {
-	limpiarPantalla();
+void OrdenarEstructuraPorSueldoSubMenu(eCliente array[], int tam) {
+	LimpiarPantalla();
 	printf("--------============== ORDENAR ESTRUCTURA POR SUELDO ==============--------");
-	OrdenarEstructuraPorFloatAsc(array, tam);
+	OrdenarPorFloatAscUnCliente(array, tam);
 
 }
 /*
@@ -115,10 +110,10 @@ void OrdenarEstructuraPorSueldoSubMenu(eEstructura array[], int tam) {
  *
  */
 
-void EliminarEstructuraMenu(eEstructura array[], int tam, int valorOcupado) {
-	limpiarPantalla();
+void EliminarEstructuraMenu(eCliente arrayClientes[], int tamClientes, eMascota arrayMascotas[], int tamMascotas, int valorOcupado) {
+	LimpiarPantalla();
 	printf("--------============== ELIMINAR ESTRUCTURA ==============--------");
-	EliminarEstructura(array, tam, valorOcupado);
+	BajaDeCliente(arrayClientes, tamClientes,arrayMascotas,tamMascotas,valorOcupado);
 }
 
 /*
@@ -127,12 +122,12 @@ void EliminarEstructuraMenu(eEstructura array[], int tam, int valorOcupado) {
  *
  */
 
-void ModificarEstructuraMenu(eEstructura array[], int tam, int valorOcupado,
+void ModificarEstructuraMenu(eCliente array[], int tam, int valorOcupado,
 		int valorLibre) {
 
-	limpiarPantalla();
+	LimpiarPantalla();
 	printf("--------============== MODIFICAR ESTRUCTURA ==============--------");
-	ModificarEstructura(array, tam, valorOcupado, valorLibre);
+	ModificarCliente(array, tam, valorOcupado, valorLibre);
 
 }
 
@@ -142,18 +137,45 @@ void ModificarEstructuraMenu(eEstructura array[], int tam, int valorOcupado,
  *
  */
 
-int ModificarEstructuraSubMenu() {
+int ModificarClienteSubMenu() {
+	int opcionElegida;
+
+	printf("\n\n\n¿Que desea modificar?"
+			"\n\n1. Información cargada en nombre."
+			"\n2. Información cargada en peso."
+			"\n3. Información cargada en edad."
+			"\n4. Guardar y salir.");
+
+	printf("\n\nElije una opcion: ");
+	scanf("%d", &opcionElegida);
+
+	return opcionElegida;
+
+}
+
+
+/*
+ * \brief
+ * \return
+ *
+ */
+
+int ModificarMascotaSubMenu() {
 	int opcionElegida;
 
 	printf("\n\n\n¿Que desea modificar?"
 			"\n\n1. Información cargada en nombre."
 			"\n2. Información cargada en sueldo."
 			"\n3. Información cargada en edad."
-			"\n4. Información cargada en estado."
+			"\n4. Informacion cargada en dueño de mascota."
 			"\n5. Guardar y salir.");
 
+	printf("\n\nElije una opcion: ");
 	scanf("%d", &opcionElegida);
 
 	return opcionElegida;
 
 }
+
+
+

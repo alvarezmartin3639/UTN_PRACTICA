@@ -6,7 +6,7 @@
  */
 
 #ifndef VALIDACIONES_H_
-#include "Estructura.h"
+#include "Mascota.h"
 #define VALIDACIONES_H_
 
 
