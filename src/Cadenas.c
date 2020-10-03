@@ -11,15 +11,33 @@
 #include <stdio.h>
 #include <string.h>
 
+/**
+ * @brief imprime texto ingresado en la llamada a la función, captura lo ingresado en fgets y
+ * elimina el \n
+ *
+ * @param pResultado
+ * @param mensaje
+ * @param cantidadDeLetras
+ *
+ * @return void
+ */
+
 void FgetsComprimido(char *pResultado, char *mensaje, int cantidadDeLetras) {
 
 	printf("\n%s", mensaje);
-	//puts(mensaje);
 	fflush(stdin);
 	fgets(pResultado, cantidadDeLetras, stdin);
 	pResultado[strlen(pResultado) - 1] = '\0';
 
 }
+
+/**
+ * @brief convierte en mayusculas el string ingresado en el parametro cadena[]
+ *
+ * @param cadena
+ * @param tam
+ * @return void
+ */
 
 void ConvertirTodoMayuscula(char cadena[], int tam) {
 	int i;
@@ -29,6 +47,14 @@ void ConvertirTodoMayuscula(char cadena[], int tam) {
 	}
 }
 
+/**
+ * @brief convierte en minusculas el string ingresado en el parametro cadena[]
+ *
+ * @param cadena
+ * @param tam
+ * @return void
+ */
+
 void ConvertirTodoMinuscula(char cadena[], int tam) {
 	int i;
 
@@ -36,6 +62,16 @@ void ConvertirTodoMinuscula(char cadena[], int tam) {
 		cadena[i] = tolower(cadena[i]);
 	}
 }
+
+/**
+ * @brief Convierte en mayuscula la primera letra del parametro cadena[],
+ * detecta espacios y convierte en mayusculas la siguiente letra
+ *
+ * @param cadena
+ * @param tam
+ *
+ * @return void
+ */
 
 void ConvertirPrimerLetraEnMayuscula(char cadena[], int tam) {
 
@@ -52,6 +88,16 @@ void ConvertirPrimerLetraEnMayuscula(char cadena[], int tam) {
 	}
 
 }
+
+/**
+ * @brief repite la cadena del parametro mensajeParaRepetir[] la cantidad de veces
+ * que diga el parametro numeroDeVecesParaRepetir[]
+ *
+ * @param mensajeParaRepetir
+ * @param numeroDeVecesParaRepetir
+ *
+ * @return void
+ */
 
 void RepetirCadena(char mensajeParaRepetir[], int numeroDeVecesParaRepetir) {
 

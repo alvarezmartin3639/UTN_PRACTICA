@@ -5,22 +5,29 @@
  *      Author: kenyn
  */
 
-
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "Cadenas.h"
 #include "FuncionesGenerales.h"
+
 /**
- * \brief Valida un valor numerico.
+ * @brief muestra un mensaje ingresado en *mensaje, lo valida por int y si no hay errores
+ * lo remplaza a la variable ingresada en el puntero *pResultado
  *
- * \param int *pResultado                  Puntero a la variable donde guardar el numero validado.
- * \param char *mensaje	                   El mensaje para imprimir al usuario.
- * \param char *mensajeError               El mensaje a mostrar si la validacion fue incorrecta.
- * \return 0							   Cuando la validación fue correcta.
- * \return -1                              Cuando la validación fue incorrecta.
+ * @param pResultado
+ * @param mensaje
+ * @param mensajeError
+ * @param minimo
+ * @param maximo
+ * @param reintentos
+ *
+ * @return retorno
+ *
  */
+
 int GetInt(int *pResultado, char *mensaje, char *mensajeError, int minimo,
 		int maximo, int reintentos) {
 	do {
@@ -29,6 +36,7 @@ int GetInt(int *pResultado, char *mensaje, char *mensajeError, int minimo,
 		int i;
 		char stringNumero[40];
 		int cantidadChars;
+		int retorno = ERROR;
 
 		contadorDeNumeros = 0;
 
@@ -47,7 +55,10 @@ int GetInt(int *pResultado, char *mensaje, char *mensajeError, int minimo,
 		if (cantidadChars == contadorDeNumeros) {
 
 			*pResultado = auxPresultado;
-			return 0;
+
+			retorno = OK;
+			return retorno;
+
 		} else {
 
 			printf(
@@ -58,16 +69,21 @@ int GetInt(int *pResultado, char *mensaje, char *mensajeError, int minimo,
 	} while (reintentos >= 0);
 	printf(
 			"\n\n****Se acabaron los reintentos vuelva a intentarlo mas tarde.****");
-	return 1;
+	return ERROR;
 }
+
 /**
- * \brief Valida una palabra o letra.
+ * @brief muestra un mensaje ingresado en *mensaje, lo valida por char y si no hay errores
+ * lo remplaza a la variable ingresada en el puntero *pResultado
  *
- * \param char *pResultado                 Puntero a la variable donde guardar el char validado.
- * \param char *mensaje	                   El mensaje para imprimir al usuario.
- * \param char *mensajeError               El mensaje a mostrar si la validacion fue incorrecta.
- * \return 0							   Cuando la validación fue correcta.
- * \return -1                              Cuando la validación fue incorrecta.
+ * @param pResultado
+ * @param mensaje
+ * @param mensajeError
+ * @param minimo
+ * @param maximo
+ * @param reintentos
+ *
+ * @return retorno
  */
 
 int GetChar(char *pResultado, char *mensaje, char *mensajeError, char minimo,
@@ -106,19 +122,24 @@ int GetChar(char *pResultado, char *mensaje, char *mensajeError, char minimo,
 			reintentos--;
 		}
 	} while (reintentos >= 0);
+
 	printf(
 			"\n\n****Se acabaron los reintentos vuelva a intentarlo mas tarde.****");
-	return 1;
+	return ERROR;
 }
 
 /**
- * \brief Valida un numero decimal.
+ * @brief muestra un mensaje ingresado en *mensaje, lo valida por flotante y si no hay errores
+ * lo remplaza a la variable ingresada en el puntero *pResultado
  *
- * \param float *pResultado                 Puntero a la variable donde guardar el char validado.
- * \param char *mensaje	                   El mensaje para imprimir al usuario.
- * \param char *mensajeError               El mensaje a mostrar si la validacion fue incorrecta.
- * \return 0							   Cuando la validación fue correcta.
- * \return -1                              Cuando la validación fue incorrecta.
+ * @param pResultado
+ * @param mensaje
+ * @param mensajeError
+ * @param minimo
+ * @param maximo
+ * @param reintentos
+ *
+ * @return retorno
  */
 
 int GetFloat(float *pResultado, char *mensaje, char *mensajeError, int minimo,
@@ -136,7 +157,7 @@ int GetFloat(float *pResultado, char *mensaje, char *mensajeError, int minimo,
 		fgets(buffer, sizeof(buffer), stdin);
 
 		if (buffer == NULL) {
-			return -1; /* Unexpected error */
+			return retorno; /* Unexpected error */
 		}
 
 		value = strtod(buffer, &endptr);
@@ -144,7 +165,9 @@ int GetFloat(float *pResultado, char *mensaje, char *mensajeError, int minimo,
 				&& (value - (int) value != 0) && minimo <= maximo
 				&& reintentos >= 0) {
 			*pResultado = value;
-			return 0;
+
+			retorno =ERROR;
+			return retorno;
 
 		} else {
 			printf(
@@ -157,7 +180,7 @@ int GetFloat(float *pResultado, char *mensaje, char *mensajeError, int minimo,
 
 	printf(
 			"\n\n****Se acabaron los reintentos vuelva a intentarlo mas tarde.****");
-	return retorno;
+	return ERROR;
 
 }
 

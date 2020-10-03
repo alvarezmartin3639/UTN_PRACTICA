@@ -24,11 +24,11 @@ int MostrarClientesQueTenganMascotas(eCliente[], int, eMascota[], int, int, int,
 
 void CabezeraMostrarMascotaConSusClientes();
 
-int AltaDeMascota(eCliente[], int, eMascota listaMascta[], int);
+int AltaDeMascota(eCliente[], int, eMascota [], int);
 
-int AsociarMascotaConCliente(eMascota*, eCliente[], int tamCliente);
+int AsociarMascotaConCliente(eMascota*, eCliente[], int );
 
-int CrearAuxiliaresDeMascota(eMascota*, eCliente[], int tamCliente);
+int CrearAuxiliaresDeMascota(eMascota*, eCliente[], int );
 
 int ModificarMascota(eMascota[], int, eCliente[], int, int, int);
 
@@ -37,9 +37,9 @@ int BajaDeCliente(eCliente[], int, eMascota[], int, int);
 int EliminarClienteJuntoSusMascotas(eCliente[], int, eMascota[], int, int, int,
 		int);
 
-int ClienteConMasMascotas(eCliente arrayCliente[], int tamCliente, eMascota arrayMascota[], int tamMascota);
+int ClienteConMasMascotas(eCliente [], int , eMascota [], int );
 
-int ContarMascotaRelacionadaConCliente(eCliente arrayCliente[], int tamCliente, eMascota arrayMascota[], int tamMascota, int);
+int ContarMascotaRelacionadaConCliente(eCliente [], int , eMascota [], int , int);
 
 
 #endif /* CLIENTEMASCOTA_H_ */

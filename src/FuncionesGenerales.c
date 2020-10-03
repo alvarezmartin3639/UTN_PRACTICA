@@ -14,10 +14,11 @@
 #include "Mascota.h"
 
 /**
- * \brief Soluciona error dentro de eclipse
+ * @brief Soluciona error dentro de eclipse
  *
- * \param void
- * \return void
+ * @param void
+ *
+ * @return void
  */
 
 void SolucionErrorDeConsola() {
@@ -27,10 +28,11 @@ void SolucionErrorDeConsola() {
 }
 
 /**
- * \brief Simular una limpieza de pantalla agregando espacios en blanco.
+ * @brief simula un limpiado de la pantalla
  *
- * \param void
- * return void
+ * @param void
+ *
+ * @return void
  */
 
 void LimpiarPantalla() {
@@ -38,13 +40,14 @@ void LimpiarPantalla() {
 }
 
 /**
- * \brief Crea una validación con dos arrays uno para continuar y otro para salir.
+ * @brief Crea una validación con dos arrays uno para continuar y otro para salir.
  *
- * \param char mensaje[]				   El mensaje para imprimir al usuario.
- * \param char condicionParaContinuar[]    La condicion para confirmar el mensaje.
- * \param char condicionParaSalir[]		   La condicion para rechazar el mensaje y salir del bucle.
- * \return -2   						   Cuando el usuario aceptó(Eligio condicionParaContinuar).
- * \return -333                            Cuando el usuario rechazó(Eligio condicionParaSalir).
+ * @param char mensaje[]				   El mensaje para imprimir al usuario.
+ * @param char condicionParaContinuar[]    La condicion para confirmar el mensaje.
+ * @param char condicionParaSalir[]		   La condicion para rechazar el mensaje y salir del bucle.
+ *
+ * @return 1   						   Cuando el usuario aceptó(Eligio condicionParaContinuar).
+ * @return 0                            Cuando el usuario rechazó(Eligio condicionParaSalir).
  */
 
 int ElejirEntreDosOpciones(char mensaje[], char condicionParaContinuar[],
@@ -68,6 +71,17 @@ int ElejirEntreDosOpciones(char mensaje[], char condicionParaContinuar[],
 	}
 	return retorno;
 }
+
+/**
+ * @brief crea una validación con dos arrays uno para continuar y otro para salir.
+ *
+ * @param pResultado
+ * @param mensaje
+ * @param opcionUno
+ * @param opcionDos
+ *
+ * @return
+ */
 
 int elejirEntreDosOpcionesConPuntero(char *pResultado, char *mensaje,
 		char opcionUno[], char opcionDos[]) {
@@ -95,10 +109,12 @@ int elejirEntreDosOpcionesConPuntero(char *pResultado, char *mensaje,
 }
 
 /**
- * \brief Confirma los cambios
+ * @brief imprime un texto para confirmar cambios y devuelve un valor numerico
+ * dependiendo si acepto o no
  *
- * \param void
- * \return int retorno   La respuesta del usuario.
+ * @param void
+ *
+ * @return int retorno   La respuesta del usuario.
  */
 
 int ConfirmacionDeCambios() {
@@ -125,6 +141,11 @@ int ConfirmacionDeCambios() {
 	return retorno;
 }
 
+/**
+ * @brief cuenta la cantidad de caracteres que tiene un entero
+ *
+ * @return contador
+ */
 
 int ContarCaracteresDeUnEntero() {
 
@@ -146,6 +167,11 @@ int ContarCaracteresDeUnEntero() {
 
 }
 
+/**
+ * @brief imprime un texto pidiendo que presionen 'enter' hasta que el usuario lo presione
+ *
+ * @return void
+ */
 void PresionarEnterParaContinuar(){
 
 

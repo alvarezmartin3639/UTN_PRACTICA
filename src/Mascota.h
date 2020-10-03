@@ -50,10 +50,6 @@ int OrdenarFloatAscenUnaMascota(eMascota[], int);
 int BuscarIdDeMascota(eMascota[], int, int, int);
 int BuscarEstadoDeMascota(eMascota[], int, int);
 
-//CABEZERA MOSTRAR MASCOTA
-void CabezeraMostrarMascota();
-
-
 int BuscarElNumeroMaximoEnMascota(eMascota [], int );
 float AcumularNumeroEnMascota(eMascota [], int );
 float PromediarNumeroEnMascota(eMascota [], int );

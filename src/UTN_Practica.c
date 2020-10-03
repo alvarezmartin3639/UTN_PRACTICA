@@ -13,6 +13,7 @@
 #include "Cliente.h"
 #include "FuncionesGenerales.h"
 #include "Mascota.h"
+#include "Menu.h"
 
 int main(void) {
 
@@ -24,56 +25,60 @@ int main(void) {
 	eCliente clientes[TCLIENTES];
 
 	InicializarMascota(mascotas, TMASCOTAS, LIBRE);
-	InicializarCliente(clientes,TCLIENTES,LIBRE);
+	InicializarCliente(clientes, TCLIENTES, LIBRE);
 
 	HardcodeoMascota(mascotas, TMASCOTAS);
-	HardcodeoCliente(clientes,TCLIENTES);
-
-
-	//AsociarMascotaConCliente(&auxmascota,clientes,TCLIENTES);
-	//ModificarMascota(mascotas,TMASCOTAS,clientes,TCLIENTES,OCUPADO,LIBRE);
-
-/*
+	HardcodeoCliente(clientes, TCLIENTES);
 
 	do {
 		opcionElegida = MostrarMenu();
 		switch (opcionElegida) {
 		case 1:
-			CargarEstructuraMenu(clientes, TCLIENTES);
+			CargarClienteMenu(clientes, TCLIENTES);
 			break;
 
 		case 2:
-			MostrarEstructuraMenu(clientes, TCLIENTES);
+			MostrarClienteMenu(clientes, TCLIENTES);
 			break;
 
 		case 3:
 
-			opcionElegidaSubMenu = OrdenarEstructuraSubMenu();
+			opcionElegidaSubMenu = OrdenarClienteSubMenu();
 			switch (opcionElegidaSubMenu) {
 			case 1:
-				OrdenarEstructuraPorLegajoAscDespuesPorNombreAscSubMenu(
-						clientes, TCLIENTES);
+				OrdenarClientePorLegajoyPorNombreSubMenu(clientes, TCLIENTES);
 				break;
 			case 2:
-				OrdenarEstructuraPorSueldoSubMenu(clientes, TCLIENTES);
+				OrdenarClientePorSueldoSubMenu(clientes, TCLIENTES);
 				break;
 			}
 
 			break;
 
 		case 4:
-			EliminarEstructuraMenu(clientes, TCLIENTES, OCUPADO);
+			EliminarClienteMenu(clientes, TCLIENTES, mascotas, TMASCOTAS,
+					OCUPADO);
 			break;
 
 		case 5:
-			ModificarEstructuraMenu(clientes, TCLIENTES, OCUPADO, LIBRE);
+			ModificarClienteMenu(clientes, TCLIENTES, OCUPADO, LIBRE);
+			break;
+
+		case 6:
+			CargarMascotaMenu(clientes, TCLIENTES, mascotas, TMASCOTAS);
+			break;
+		case 7:
+			ModificarMascotaMenu(clientes, TCLIENTES, mascotas, TMASCOTAS,
+					OCUPADO, LIBRE);
+			break;
+		case 8:
+			BajaDeMascota(mascotas, TMASCOTAS, OCUPADO);
 			break;
 
 		default:
 			printf("\n****OPCION NO VALIDA...****\n");
 			break;
 		}
-	} while (opcionElegida != 6);
+	} while (opcionElegida != 9);
 
-	*/
 }

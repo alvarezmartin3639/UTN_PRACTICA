@@ -13,70 +13,82 @@
 #include "FuncionesGenerales.h"
 #include "Validaciones.h"
 
-/*
- * \brief
- * \return
+/**
+ * @brief Harcodea el valor de la entidad mascota
  *
+ * @param arrayMascota
+ * @param tamMascota
+ *
+ * @return void
  */
 
-void HardcodeoMascota(eMascota array[], int tam) {
+void HardcodeoMascota(eMascota arrayMascota[], int tamMascota) {
 
-	char nombre[TMASCOTAS][50] = { "Lucia", "Luis", "Fernanda", "Fernando", "Juana", "Juan", "Ludmila", "Lucero" };
-	float peso[TMASCOTAS] =
-			{ 23, 10, 3, 4, 1, 5, 22.3, 11.1 };
+	char nombre[TMASCOTAS][50] = { "Lucia", "Luis", "Fernanda", "Fernando",
+			"Juana", "Juan", "Ludmila", "Lucero" };
+	float peso[TMASCOTAS] = { 23, 10, 3, 4, 1, 5, 22.3, 11.1 };
 	int edad[TMASCOTAS] = { 18, 22, 21, 33, 11, 44, 55, 66 };
-	float sexo[TMASCOTAS]={'f','m','f','m','f','m','f','m'};
-	int idMascota[TMASCOTAS]={1,2,3,4,5,6,7,8};
-	int idCliente[TMASCOTAS]={1,3,2,1,1,3,4,5};
-	int estado[TMASCOTAS] = { LIBRE, OCUPADO, OCUPADO, OCUPADO, OCUPADO, OCUPADO,
+	float sexo[TMASCOTAS] = { 'f', 'm', 'f', 'm', 'f', 'm', 'f', 'm' };
+	int idMascota[TMASCOTAS] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+	int idCliente[TMASCOTAS] = { 1, 3, 2, 1, 1, 3, 4, 5 };
+	int estado[TMASCOTAS] = { LIBRE, OCUPADO, OCUPADO, OCUPADO, OCUPADO,
+	OCUPADO,
 	OCUPADO, OCUPADO };
 
 	int i;
-	for (i = 0; i < tam; i++) {
-		array[i].estado = estado[i];
-		strcpy(array[i].nombre, nombre[i]);
-		array[i].peso = peso[i];
-		array[i].edad = edad[i];
-		array[i].idMascota=	 idMascota[i];
-		array[i].idCliente=idCliente[i];
-		array[i].sexo=sexo[i];
+	for (i = 0; i < tamMascota; i++) {
+		arrayMascota[i].estado = estado[i];
+		strcpy(arrayMascota[i].nombre, nombre[i]);
+		arrayMascota[i].peso = peso[i];
+		arrayMascota[i].edad = edad[i];
+		arrayMascota[i].idMascota = idMascota[i];
+		arrayMascota[i].idCliente = idCliente[i];
+		arrayMascota[i].sexo = sexo[i];
 	}
 }
 
-
-/*
- * \brief
- * \return
+/**
+ *@brief Remplaza los auxiliares creados  sobre la estructura pasados
+ * en la llamada
  *
+ * @param list
+ * @param auxMascota
+ * @param indiceParaRemplazar
+ * @param valorOcupado
+ * @return retorno
  */
 
-int RemplazarAuxiliaresyCrearMascota(eMascota list[], eMascota auxEstructura,
+int RemplazarAuxiliaresyCrearMascota(eMascota list[], eMascota auxMascota,
 		int indiceParaRemplazar, int valorOcupado) {
 
 	int retorno = 1;
 
-	list[indiceParaRemplazar].edad = auxEstructura.edad;
+	list[indiceParaRemplazar].edad = auxMascota.edad;
 	list[indiceParaRemplazar].estado = valorOcupado;
 	list[indiceParaRemplazar].idMascota = GenerarIdDeMascota();
-	list[indiceParaRemplazar].idCliente=auxEstructura.idCliente;
-	list[indiceParaRemplazar].peso = auxEstructura.peso;
-	strcpy(list[indiceParaRemplazar].nombre, auxEstructura.nombre);
+	list[indiceParaRemplazar].idCliente = auxMascota.idCliente;
+	list[indiceParaRemplazar].peso = auxMascota.peso;
+	strcpy(list[indiceParaRemplazar].nombre, auxMascota.nombre);
 
 	return retorno;
 }
 
-/*
- * \brief
- * \return
+/**
+ * @brief Busca el estado de una mascota
  *
+ * @param arrayMascota
+ * @param tamMascota
+ * @param valorParaBuscar
+ * @return indice
  */
 
-int BuscarEstadoDeMascota(eMascota array[], int tam, int valorParaBuscar) {
+int BuscarEstadoDeMascota(eMascota arrayMascota[], int tamMascota,
+		int valorParaBuscar) {
 
 	int i;
 	int indice = ERROR;
-	for (i = 0; i < tam; i++) {
-		if (array[i].estado == valorParaBuscar) {
+	for (i = 0; i < tamMascota; i++) {
+		if (arrayMascota[i].estado == valorParaBuscar) {
 			indice = i;
 			break;
 		}
@@ -84,33 +96,38 @@ int BuscarEstadoDeMascota(eMascota array[], int tam, int valorParaBuscar) {
 	return indice;
 }
 
-
+/**
+ * @brief muestra la cabezera de el listado eMascota.
+ *
+ * @return void
+ */
 
 void CabezeraMostrarMascota() {
 
-
-	printf("%-13s %-13s %-20s %-5s %-14s %-5s %-10s",
-					"ID MASCOTA","ID CLIENTE","NOMBRE","EDAD","PESO","SEXO",
-					"ESTADO");
+	printf("%-13s %-13s %-20s %-5s %-14s %-5s %-10s", "ID MASCOTA",
+			"ID CLIENTE", "NOMBRE", "EDAD", "PESO", "SEXO", "ESTADO");
 }
 
-
-/*
- * \brief
- * \return
+/**
+ * @brief Muestra el listado del arrayMascota estructura eMascota.
  *
+ * @param arrayMascota
+ * @param tamMascota
+ * @param valorOcupado
+ *
+ * @return contadorEspaciosOcupados
  */
 
-int MostrarListadoDeMascota(eMascota array[], int tam, int valorOcupado) {
+int MostrarListadoDeMascota(eMascota arrayMascota[], int tamMascota,
+		int valorOcupado) {
 	int i;
 	int contadorEspaciosOcupados = ERROR;
 
-
 	CabezeraMostrarMascota();
 
-	for (i = 0; i < tam; i++) {
-		contadorEspaciosOcupados = MostrarMascotaMedianteIndice(array,
-				i, valorOcupado);
+	for (i = 0; i < tamMascota; i++) {
+		contadorEspaciosOcupados = MostrarMascotaMedianteIndice(arrayMascota, i,
+				valorOcupado);
 	}
 
 	if (contadorEspaciosOcupados == ERROR) {
@@ -119,91 +136,108 @@ int MostrarListadoDeMascota(eMascota array[], int tam, int valorOcupado) {
 	return contadorEspaciosOcupados;
 }
 
-/*
- * \brief
- * \return
+/**
+ * @brief Muestra una entidad eMascota dando por parametro su indice
  *
+ * @param arrayMascota
+ * @param indiceDeLaEstructura
+ * @param valorEstado
+ *
+ * @return retorno
  */
 
-int MostrarMascotaMedianteIndice(eMascota array[], int indiceDeLaEstructura,
+int MostrarMascotaMedianteIndice(eMascota arrayMascota[], int indiceParaMostrar,
 		int valorEstado) {
 	int retorno;
 
-retorno=ERROR;
+	retorno = ERROR;
 
-	if (array[indiceDeLaEstructura].estado == valorEstado || valorEstado==INDIFERENTE ) {
-
-
+	if (arrayMascota[indiceParaMostrar].estado
+			== valorEstado|| valorEstado==INDIFERENTE) {
 
 		printf("\n%-13d %-13d %-20s %-5d %-14.2f %-5c %-10d",
-				array[indiceDeLaEstructura].idMascota,array[indiceDeLaEstructura].idCliente,
-				array[indiceDeLaEstructura].nombre,array[indiceDeLaEstructura].edad,
-				array[indiceDeLaEstructura].peso,array[indiceDeLaEstructura].sexo,
-				array[indiceDeLaEstructura].estado);
+				arrayMascota[indiceParaMostrar].idMascota,
+				arrayMascota[indiceParaMostrar].idCliente,
+				arrayMascota[indiceParaMostrar].nombre,
+				arrayMascota[indiceParaMostrar].edad,
+				arrayMascota[indiceParaMostrar].peso,
+				arrayMascota[indiceParaMostrar].sexo,
+				arrayMascota[indiceParaMostrar].estado);
 
-		retorno=OK;
+		retorno = OK;
 	}
 
 	return retorno;
 }
 
-/*
- * \brief
- * \return
+/**
+ * @brief muestra una unica estructura eMascota
  *
+ * @param mascota
+ * @param valorOcupado
+ *
+ * @return 1
  */
 
 int MostrarUnaUnicaMascota(eMascota mascota, int valorOcupado) {
 
 	if (mascota.estado == valorOcupado || valorOcupado == INDIFERENTE) {
-
 		CabezeraMostrarMascota();
-		printf("\n%-13d %-13d %-20s %-5d %-14.2f %-5c %-10d",
-				mascota.idMascota, mascota.idCliente, mascota.nombre,
-				mascota.edad, mascota.peso, mascota.sexo, mascota.estado);
+		printf("\n%-13d %-13d %-20s %-5d %-14.2f %-5c %-10d", mascota.idMascota,
+				mascota.idCliente, mascota.nombre, mascota.edad, mascota.peso,
+				mascota.sexo, mascota.estado);
 	}
 
 	return OK;
 }
 
-/*
- * \brief
- * \return
+/**
+ *@brief Inicializa el estado en un arrayMascota de estructura eMascota
  *
+ * @param arrayMascota
+ * @param tamMascota
+ * @param valorLibre
+ *
+ * @return 1
  */
 
-int InicializarMascota(eMascota array[], int tam, int valorLibre) {
+int InicializarMascota(eMascota arrayMascota[], int tamMascota, int valorLibre) {
 	int i;
 
-	for (i = 0; i < tam; i++) {
-		array[i].estado = LIBRE;
+	for (i = 0; i < tamMascota; i++) {
+		arrayMascota[i].estado = valorLibre;
 	}
 	return OK;
 }
 
-/*
- * \brief
- * \return
+/**
+ *@brief Ordena un array de eMascota por abecedario de menor a mayor y
+ * por numero entero de menor a mayor.
  *
+ * @param arrayMascota
+ * @param tamMascota
+ *
+ * @return 1
  */
 
-int OrdenarStringAscenIntAscEnMascota(eMascota array[], int tam) {
+int OrdenarStringAscenIntAscEnMascota(eMascota arrayMascota[], int tamMascota) {
 	int i;
 	int j;
-	eMascota auxEstructura;
+	eMascota auxMascota;
 
-	for (i = 0; i < tam - 1; i++) {
-		for (j = i + 1; j < tam; j++) {
-			if (strcmp(array[i].nombre, array[j].nombre) > 0) {
-				auxEstructura = array[i];
-				array[i] = array[j];
-				array[j] = auxEstructura;
+	for (i = 0; i < tamMascota - 1; i++) {
+		for (j = i + 1; j < tamMascota; j++) {
+			if (strcmp(arrayMascota[i].nombre, arrayMascota[j].nombre) > 0) {
+				auxMascota = arrayMascota[i];
+				arrayMascota[i] = arrayMascota[j];
+				arrayMascota[j] = auxMascota;
 			} else {
-				if (strcmp(array[i].nombre, array[j].nombre) == 0) {
-					if (array[i].idMascota > array[j].idMascota) {
-						auxEstructura = array[i];
-						array[i] = array[j];
-						array[j] = auxEstructura;
+				if (strcmp(arrayMascota[i].nombre, arrayMascota[j].nombre)
+						== 0) {
+					if (arrayMascota[i].idMascota > arrayMascota[j].idMascota) {
+						auxMascota = arrayMascota[i];
+						arrayMascota[i] = arrayMascota[j];
+						arrayMascota[j] = auxMascota;
 					}
 				}
 			}
@@ -214,27 +248,30 @@ int OrdenarStringAscenIntAscEnMascota(eMascota array[], int tam) {
 	return OK;
 }
 
-/*
- * \brief
- * \return
+/**
+ *@brief Ordena un array eMascota por flotante de menor a mayor
  *
+ * @param arrayMascota
+ * @param tamMascota
+ *
+ * @return 1
  */
 
-int OrdenarFloatAscEnMascota(eMascota array[], int tam) {
+int OrdenarFloatAscEnMascota(eMascota arrayMascota[], int tamMascota) {
 	int i;
 	int j;
-	eMascota auxEstructura;
+	eMascota auxMascota;
 
-	for (i = 0; i < tam - 1; i++) // rojo
+	for (i = 0; i < tamMascota - 1; i++) // rojo
 			{
-		for (j = i + 1; j < tam; j++) //  verde
+		for (j = i + 1; j < tamMascota; j++) //  verde
 				{
 
-			if (array[i].peso > array[j].peso) {
+			if (arrayMascota[i].peso > arrayMascota[j].peso) {
 
-				auxEstructura = array[i];
-				array[i] = array[j];
-				array[j] = auxEstructura;
+				auxMascota = arrayMascota[i];
+				arrayMascota[i] = arrayMascota[j];
+				arrayMascota[j] = auxMascota;
 			}
 		}
 	}
@@ -242,28 +279,33 @@ int OrdenarFloatAscEnMascota(eMascota array[], int tam) {
 	return OK;
 }
 
-/*
- * \brief
- * \return
+/**
+ *@brief Se da de baja una entidad de eMascota mediante un id
  *
+ * @param arrayMascota
+ * @param tamMascota
+ * @param valorOcupado
+ *
+ * @return 1
  */
 
-int BajaDeMascota(eMascota array[], int tam, int valorOcupado) {
+int BajaDeMascota(eMascota arrayMascota[], int tamMascota, int valorOcupado) {
 	int legajoParaEliminar;
 	int indiceLegajoParaEliminar;
 
 	GetInt(&legajoParaEliminar, "Ingrese el numero de legajo a eliminar: ",
 			"Error legajo invalido ", 0, 200, 2);
 
-	indiceLegajoParaEliminar = BuscarIdDeMascota(array, tam, legajoParaEliminar,
+	indiceLegajoParaEliminar = BuscarIdDeMascota(arrayMascota, tamMascota,
+			legajoParaEliminar,
 			OCUPADO);
 
 	if (indiceLegajoParaEliminar != ERROR) {
-		MostrarMascotaMedianteIndice(array, indiceLegajoParaEliminar,
+		MostrarMascotaMedianteIndice(arrayMascota, indiceLegajoParaEliminar,
 				valorOcupado);
 
 		if (ConfirmacionDeCambios() == ACEPTO) {
-			array[indiceLegajoParaEliminar].estado = LIBRE;
+			arrayMascota[indiceLegajoParaEliminar].estado = LIBRE;
 			printf("\n*******Se eliminó con exito*******");
 		} else {
 			ElejirEntreDosOpciones(
@@ -281,15 +323,16 @@ int BajaDeMascota(eMascota array[], int tam, int valorOcupado) {
 	return OK;
 }
 
-
 /**
- * \brief Busca un valor int en la variable int de una estructura.
+ *@brief Busca el id de una eMascota, compara su estado con el
+ * estado ingresado en la llamada.
  *
- * \param eAlumno listado[]                La estructura donde trabajar.
- * \param int tam                          El numero de arrays de la estructura.
- * \param int valorBuscado                 El int que deseamos que busque en la variable del array de estructura.
- * \param int valorEstadoParaBuscar        El valor de estado para buscar, 0 = ocupado, 1 = 0 libre, -1 = indiferente(libre y ocupado a la vez).
- * \return int index                       Devuelve -322 si no se encontró nada  o la posicion dentro del array donde se encontró el int
+ * @param estructura
+ * @param tamEstructura
+ * @param valorBuscado
+ * @param valorEstadoParaBuscar
+ *
+ * @return retorno
  */
 
 int BuscarIdDeMascota(eMascota estructura[], int tamEstructura,
@@ -298,62 +341,100 @@ int BuscarIdDeMascota(eMascota estructura[], int tamEstructura,
 	int i;
 	int retorno = ERROR;
 
-		for (i = 0; i < tamEstructura; i++) {
-			if ((estructura[i].estado == valorEstadoParaBuscar || valorEstadoParaBuscar==-1)
-					&& estructura[i].idMascota == valorBuscado) {
-				retorno = i;
-				break;
-			}
+	for (i = 0; i < tamEstructura; i++) {
+		if ((estructura[i].estado == valorEstadoParaBuscar
+				|| valorEstadoParaBuscar == INDIFERENTE)
+				&& estructura[i].idMascota == valorBuscado) {
+			retorno = i;
+			break;
 		}
+	}
 
 	return retorno;
 
 }
 
-/*
- * \brief
- * \return
+/**
+ *@brief genera un numero autoincremental utilizado para dar
+ * el id la entidad eMascota
  *
+ * @return generarIdDeMascota
  */
+
 int GenerarIdDeMascota() {
 	static int generarIdDeMascota = 0;
 	generarIdDeMascota++;
 	return generarIdDeMascota;
 }
 
+/**
+ * @brief Busca el numero maximo de un array entidad eMascota
+ * y devuelve el indice con el mayor.
+ *
+ * @param arrayMascota
+ * @param tamMascota
+ * @param valorEstado
+ *
+ * @return indiceMaximo
+ */
 
-int BuscarElIntMaximoEnMascota(eMascota arrayMascota[], int tamMascota, int valorEstado) {
+int BuscarElIntMaximoEnMascota(eMascota arrayMascota[], int tamMascota,
+		int valorEstado) {
 
 	int i;
 	int maxInt;
-	int indiceMaximo=ERROR;
+	int indiceMaximo = ERROR;
 
 	for (i = 0; i < tamMascota; i++) {
-		if ((arrayMascota[i].edad > maxInt && arrayMascota[i].estado==valorEstado ) || (valorEstado ==INDIFERENTE || i == 0)) {
+		if ((arrayMascota[i].edad > maxInt
+				&& arrayMascota[i].estado == valorEstado)
+				|| (valorEstado == INDIFERENTE || i == 0)) {
 			maxInt = arrayMascota[i].edad;
-			indiceMaximo=i;
+			indiceMaximo = i;
 		}
 	}
 
 	return indiceMaximo;
 }
 
+/**
+ * @brief busca el flotante mayor en una variable de un array eMascota
+ *
+ * @param arrayMascota
+ * @param tamMascota
+ * @param valorEstado
+ *
+ * @return indiceMaximo
+ */
+
 // ESTO SE PUEDE MEJORAR, PUEDO HACER QUE DETECTE SOLO SI ES FLOAT O INT
-int BuscarElFloatMaximoEnMascota(eMascota arrayMascota[], int tamMascota, int valorEstado) {
+int BuscarElFloatMaximoEnMascota(eMascota arrayMascota[], int tamMascota,
+		int valorEstado) {
 
 	int i;
 	float maxFloat;
-	int indiceMaximo=ERROR;
+	int indiceMaximo = ERROR;
 
 	for (i = 0; i < tamMascota; i++) {
-		if ((arrayMascota[i].peso > maxFloat && arrayMascota[i].estado==valorEstado ) || (valorEstado ==INDIFERENTE || i == 0)) {
+		if ((arrayMascota[i].peso > maxFloat
+				&& arrayMascota[i].estado == valorEstado)
+				|| (valorEstado == INDIFERENTE || i == 0)) {
 			maxFloat = arrayMascota[i].peso;
-			indiceMaximo=i;
+			indiceMaximo = i;
 		}
 	}
 
 	return indiceMaximo;
 }
+
+/**
+ * @brief acumula flotantes de una variable de un array eMascota
+ *
+ * @param arrayMascota
+ * @param tamMascota
+ *
+ * @return acumulador
+ */
 
 float AcumularNumeroEnMascota(eMascota arrayMascota[], int tamMascota) {
 
@@ -372,6 +453,16 @@ float AcumularNumeroEnMascota(eMascota arrayMascota[], int tamMascota) {
 	return acumulador;
 }
 
+/**
+ * @brief acumula las variables de un array de eMascotas, cuenta la
+ * cantidad de estados ocupados dentro de ella y saca un promedio
+ *
+ * @param arrayMascota
+ * @param tamMascota
+ *
+ * @return numeroAcumulado
+ */
+
 float PromediarNumeroEnMascota(eMascota arrayMascota[], int tamMascota) {
 
 	float numeroAcumulado;
@@ -380,13 +471,24 @@ float PromediarNumeroEnMascota(eMascota arrayMascota[], int tamMascota) {
 	//ACUMULO NUM
 	numeroAcumulado = AcumularNumeroEnMascota(arrayMascota, tamMascota);
 	//BUSCO LA CANTIDAD DE OCUPADOS
-	contadorDeEstadosOcupados = ContarEstadoEnMascota(arrayMascota,
-			tamMascota, OCUPADO);
+	contadorDeEstadosOcupados = ContarEstadoEnMascota(arrayMascota, tamMascota,
+	OCUPADO);
 
 	//PROMEDIO
 	numeroAcumulado = (float) numeroAcumulado / contadorDeEstadosOcupados;
 	return numeroAcumulado;
 }
+
+/**
+ * @brief cuenta la cantidad de estados dependiendo lo ingresado en valorDeEstado
+ * de un array eMascota
+ *
+ * @param arrayMascota
+ * @param tamMascota
+ * @param valorDeEstado
+ *
+ * @return contadorEstados
+ */
 
 int ContarEstadoEnMascota(eMascota arrayMascota[], int tamMascota,
 		int valorDeEstado) {
@@ -406,6 +508,17 @@ int ContarEstadoEnMascota(eMascota arrayMascota[], int tamMascota,
 	return contadorEstados;
 
 }
+
+/**
+ * @brief cuenta la cantidad de estados igual a valorParaContar en una
+ *  variable de un array eMascota
+ *
+ * @param arrayMascota
+ * @param tamMascota
+ * @param valorParaContar
+ *
+ * @return contador
+ */
 
 int ContarNumeroMayorEnMascota(eMascota arrayMascota[], int tamMascota,
 		int valorParaContar) {

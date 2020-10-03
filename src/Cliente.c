@@ -15,13 +15,16 @@
 #include "Menu.h"
 #include "Validaciones.h"
 
-/*
- * \brief
- * \return
+/**
+ * @brief Harcodea el valor de la entidad mascota
  *
+ * @param arrayMascota
+ * @param tamMascota
+ *
+ * @return void
  */
 
-void HardcodeoCliente(eCliente array[], int tam) {
+void HardcodeoCliente(eCliente arrayCliente[], int tamCliente) {
 
 	char nombre[TCLIENTES][50] = { "Hernesto", "Jose", "Susana", "Roberto",
 			"Pepe", "Hernan", "Isabell", "Martin" };
@@ -36,25 +39,28 @@ void HardcodeoCliente(eCliente array[], int tam) {
 	OCUPADO, OCUPADO };
 
 	int i;
-	for (i = 0; i < tam; i++) {
-		array[i].idCliente = idCliente[i];
-		array[i].estado = estado[i];
-		strcpy(array[i].nombre, nombre[i]);
-		array[i].sueldo = sueldo[i];
-		array[i].edad = edad[i];
-		array[i].cantMascotasAsociadas = cantMascotasAsociadas[i];
+	for (i = 0; i < tamCliente; i++) {
+		arrayCliente[i].idCliente = idCliente[i];
+		arrayCliente[i].estado = estado[i];
+		strcpy(arrayCliente[i].nombre, nombre[i]);
+		arrayCliente[i].sueldo = sueldo[i];
+		arrayCliente[i].edad = edad[i];
+		arrayCliente[i].cantMascotasAsociadas = cantMascotasAsociadas[i];
 	}
 }
 
-/*
- * \brief
- * \return
+/**
+ * @brief Da de alta a un cliente
  *
+ * @param arrayCliente
+ * @param tamCliente
+ *
+ * @return retorno
  */
 
-int AltaDeCliente(eCliente array[], int tam) {
+int AltaDeCliente(eCliente arrayCliente[], int tamCliente) {
 
-	eCliente auxEstructura;
+	eCliente auxCliente;
 	int indiceDelEspacioLibre;
 	int retorno = ERROR;
 	char deseaContinuar = 'y';
@@ -64,14 +70,15 @@ int AltaDeCliente(eCliente array[], int tam) {
 		printf(
 				"--------============== CARGAR ESTRUCTURA ==============--------");
 
-		indiceDelEspacioLibre = BuscarEstadoDeCliente(array, tam, LIBRE);
+		indiceDelEspacioLibre = BuscarEstadoDeCliente(arrayCliente, tamCliente,
+		LIBRE);
 		if (indiceDelEspacioLibre != ERROR) {
 
-			CrearAuxiliaresDeCliente(&auxEstructura);
-			MostrarUnUnicoCliente(auxEstructura, OCUPADO);
+			CrearAuxiliaresDeCliente(&auxCliente);
+			MostrarUnUnicoCliente(auxCliente, OCUPADO);
 
 			if (ConfirmacionDeCambios() == OPCIONUNO) {
-				RemplazarAuxiliaresyCrearUnCliente(array, auxEstructura,
+				RemplazarAuxiliaresyCrearUnCliente(arrayCliente, auxCliente,
 						indiceDelEspacioLibre,
 						OCUPADO);
 
@@ -97,57 +104,70 @@ int AltaDeCliente(eCliente array[], int tam) {
 	return retorno;
 }
 
-/*
- * \brief
- * \return
+/**
+ * @brief crea los auxiliares de una estructura eCliente
  *
+ * @param auxCliente
+ *
+ * @return
  */
 
-int CrearAuxiliaresDeCliente(eCliente *auxEstructura) {
+int CrearAuxiliaresDeCliente(eCliente *auxCliente) {
 
-	GetChar(auxEstructura->nombre, "\nIngrese un nombre: ", "Error!!", 'a', 'z',
+	GetChar(auxCliente->nombre, "\nIngrese un nombre: ", "Error!!", 'a', 'z',
 			2);
-	GetFloat(&auxEstructura->sueldo, "\nIngrese un precio: ",
+	GetFloat(&auxCliente->sueldo, "\nIngrese un precio: ",
 			"Error precio invalido.", 1, 100000, 2);
-	GetInt(&auxEstructura->edad, "\nIngrese una edad: ", "Error edad invalido",
-			0, 100, 2);
-	auxEstructura->idCliente = 0;
-	auxEstructura->estado = OCUPADO;
+	GetInt(&auxCliente->edad, "\nIngrese una edad: ", "Error edad invalido", 0,
+			100, 2);
+	auxCliente->idCliente = 0;
+	auxCliente->estado = OCUPADO;
 	return 0;
 }
 
-/*
- * \brief
- * \return
+/**
+ * @brief remplaza los auxiliares creados en CrearAuxiliaresDeCliente y crea
+ * un eCliente
  *
+ * @param arrayCliente
+ * @param auxCliente
+ * @param indiceParaRemplazar
+ * @param valorOcupado
+ *
+ * @return retorno
  */
 
-int RemplazarAuxiliaresyCrearUnCliente(eCliente list[], eCliente auxEstructura,
-		int indiceParaRemplazar, int valorOcupado) {
+int RemplazarAuxiliaresyCrearUnCliente(eCliente arrayCliente[],
+		eCliente auxCliente, int indiceParaRemplazar, int valorOcupado) {
 
 	int retorno = 1;
 
-	list[indiceParaRemplazar].edad = auxEstructura.edad;
-	list[indiceParaRemplazar].estado = valorOcupado;
-	list[indiceParaRemplazar].idCliente = GenerarIdDeMascota();
-	list[indiceParaRemplazar].sueldo = auxEstructura.sueldo;
-	strcpy(list[indiceParaRemplazar].nombre, auxEstructura.nombre);
+	arrayCliente[indiceParaRemplazar].edad = auxCliente.edad;
+	arrayCliente[indiceParaRemplazar].estado = valorOcupado;
+	arrayCliente[indiceParaRemplazar].idCliente = GenerarIdDeMascota();
+	arrayCliente[indiceParaRemplazar].sueldo = auxCliente.sueldo;
+	strcpy(arrayCliente[indiceParaRemplazar].nombre, auxCliente.nombre);
 
 	return retorno;
 }
 
-/*
- * \brief
- * \return
+/**
+ * @brief busca el primer estado libre y devuelve su indice
  *
+ * @param arrayCliente
+ * @param tamCliente
+ * @param valorLibre
+ *
+ * @return indice
  */
 
-int BuscarEstadoDeCliente(eCliente array[], int tam, int valorLibre) {
+int BuscarEstadoDeCliente(eCliente arrayCliente[], int tamCliente,
+		int valorLibre) {
 
 	int i;
 	int indice = ERROR;
-	for (i = 0; i < tam; i++) {
-		if (array[i].estado == valorLibre) {
+	for (i = 0; i < tamCliente; i++) {
+		if (arrayCliente[i].estado == valorLibre) {
 			indice = i;
 			break;
 		}
@@ -155,61 +175,71 @@ int BuscarEstadoDeCliente(eCliente array[], int tam, int valorLibre) {
 	return indice;
 }
 
-/*
- * \brief
- * \return
+/**
+ * @brief muestra la cabezera de el listado de eCliente.
  *
+ * @return void
  */
+
 void CabezeraMostrarCliente() {
 
 	printf("%-13s %-20s %-5s %-14s %-10s", "ID CLIENTE", "NOMBRE", "EDAD",
 			"SUELDO", "ESTADO");
 }
 
-/*
- * \brief
- * \return
+/**
+ * @brief Muestra el listado del arrayCliente estructura eCliente.
  *
+ * @param arrayCliente
+ * @param tamCliente
+ * @param valorOcupado
+ *
+ * @return contadorEspaciosOcupados
  */
 
-int MostrarListadoDeCliente(eCliente array[], int tam, int valorOcupado) {
+int MostrarListadoDeCliente(eCliente arrayCliente[], int tamCliente,
+		int valorOcupado) {
 	int i;
-	int contadorCantidadDeEstadoOcupados;
+	int contadorEspaciosOcupados;
 	int retorno = ERROR;
 
 	CabezeraMostrarCliente();
 
-	for (i = 0; i < tam; i++) {
-		contadorCantidadDeEstadoOcupados = MostrarClienteMedianteIndice(array,
-				i, valorOcupado);
+	for (i = 0; i < tamCliente; i++) {
+		contadorEspaciosOcupados = MostrarClienteMedianteIndice(arrayCliente, i,
+				valorOcupado);
 	}
 
-	if (contadorCantidadDeEstadoOcupados == ERROR) {
+	if (contadorEspaciosOcupados == ERROR) {
 		printf("****Error entidad no encontrada****");
 	}
 	return retorno;
 }
 
-/*
- * \brief
- * \return
+/**
+ * @brief Muestra una entidad eCliente dando por parametro su indice
  *
+ * @param arrayCliente
+ * @param indiceDeLaEstructura
+ * @param valorOcupado
+ *
+ * @return retorno
  */
 
-int MostrarClienteMedianteIndice(eCliente array[], int indiceDeLaEstructura,
-		int valorOcupado) {
+int MostrarClienteMedianteIndice(eCliente arrayCliente[],
+		int indiceDeLaEstructura, int valorOcupado) {
 
 	int retorno = ERROR;
 
-	if (array[indiceDeLaEstructura].estado
+	if (arrayCliente[indiceDeLaEstructura].estado
 			== valorOcupado|| valorOcupado==INDIFERENTE) {
 
 		printf("\n%-13d %-20s %-5d %-14.2f %-10d",
-				array[indiceDeLaEstructura].idCliente,
-				array[indiceDeLaEstructura].nombre,
-				array[indiceDeLaEstructura].edad,
-				array[indiceDeLaEstructura].sueldo,
-				array[indiceDeLaEstructura].estado);
+				arrayCliente[indiceDeLaEstructura].idCliente,
+				arrayCliente[indiceDeLaEstructura].nombre,
+				arrayCliente[indiceDeLaEstructura].edad,
+				arrayCliente[indiceDeLaEstructura].sueldo,
+				arrayCliente[indiceDeLaEstructura].estado);
 
 		retorno = OK;
 	}
@@ -217,62 +247,75 @@ int MostrarClienteMedianteIndice(eCliente array[], int indiceDeLaEstructura,
 	return retorno;
 }
 
-/*
- * \brief
- * \return
+/**
+ * @brief muestra una unica estructura eCliente
  *
+ * @param arrayCliente
+ * @param valorOcupado
+ *
+ * @return 1
  */
 
-int MostrarUnUnicoCliente(eCliente array, int valorOcupado) {
+int MostrarUnUnicoCliente(eCliente arrayCliente, int valorOcupado) {
 
-	if (array.estado == valorOcupado || valorOcupado == INDIFERENTE) {
+	if (arrayCliente.estado == valorOcupado || valorOcupado == INDIFERENTE) {
 
 		CabezeraMostrarCliente();
-		printf("\n %-13d %-20s %-5d %-14.2f %-10d", array.idCliente,
-				array.nombre, array.edad, array.sueldo, array.estado);
+		printf("\n %-13d %-20s %-5d %-14.2f %-10d", arrayCliente.idCliente,
+				arrayCliente.nombre, arrayCliente.edad, arrayCliente.sueldo,
+				arrayCliente.estado);
 	}
 
 	return OK;
 }
 
-/*
- * \brief
- * \return
+/**
+ *@brief Inicializa el estado en un arrayCliente de estructura eCliente
  *
+ * @param arrayCliente
+ * @param tamCliente
+ * @param valorLibre
+ *
+ * @return 1
  */
 
-int InicializarCliente(eCliente array[], int tam, int valorLibre) {
+int InicializarCliente(eCliente arrayCliente[], int tamCliente, int valorLibre) {
 	int i;
 
-	for (i = 0; i < tam; i++) {
-		array[i].estado = LIBRE;
+	for (i = 0; i < tamCliente; i++) {
+		arrayCliente[i].estado = LIBRE;
 	}
 	return OK;
 }
 
-/*
- * \brief
- * \return
+/**
+ *@brief Ordena un array de eCliente por abecedario de menor a mayor y
+ * por numero entero de menor a mayor.
  *
+ * @param arrayCliente
+ * @param tamCliente
+ *
+ * @return
  */
 
-int OrdenarStringAscenIntAscenUnCliente(eCliente array[], int tam) {
+int OrdenarStringAscenIntAscenUnCliente(eCliente arrayCliente[], int tamCliente) {
 	int i;
 	int j;
-	eCliente auxEstructura;
+	eCliente auxCliente;
 
-	for (i = 0; i < tam - 1; i++) {
-		for (j = i + 1; j < tam; j++) {
-			if (strcmp(array[i].nombre, array[j].nombre) > 0) {
-				auxEstructura = array[i];
-				array[i] = array[j];
-				array[j] = auxEstructura;
+	for (i = 0; i < tamCliente - 1; i++) {
+		for (j = i + 1; j < tamCliente; j++) {
+			if (strcmp(arrayCliente[i].nombre, arrayCliente[j].nombre) > 0) {
+				auxCliente = arrayCliente[i];
+				arrayCliente[i] = arrayCliente[j];
+				arrayCliente[j] = auxCliente;
 			} else {
-				if (strcmp(array[i].nombre, array[j].nombre) == 0) {
-					if (array[i].idCliente > array[j].idCliente) {
-						auxEstructura = array[i];
-						array[i] = array[j];
-						array[j] = auxEstructura;
+				if (strcmp(arrayCliente[i].nombre, arrayCliente[j].nombre)
+						== 0) {
+					if (arrayCliente[i].idCliente > arrayCliente[j].idCliente) {
+						auxCliente = arrayCliente[i];
+						arrayCliente[i] = arrayCliente[j];
+						arrayCliente[j] = auxCliente;
 					}
 				}
 			}
@@ -283,27 +326,29 @@ int OrdenarStringAscenIntAscenUnCliente(eCliente array[], int tam) {
 	return OK;
 }
 
-/*
- * \brief
- * \return
+/**
+ *@brief Ordena un array eCliente por flotante de menor a mayor
  *
+ * @param arrayCliente
+ * @param tamCliente
+ * @return
  */
 
-int OrdenarPorFloatAscUnCliente(eCliente array[], int tam) {
+int OrdenarPorFloatAscUnCliente(eCliente arrayCliente[], int tamCliente) {
 	int i;
 	int j;
-	eCliente auxEstructura;
+	eCliente auxCliente;
 
-	for (i = 0; i < tam - 1; i++) // rojo
+	for (i = 0; i < tamCliente - 1; i++) // rojo
 			{
-		for (j = i + 1; j < tam; j++) //  verde
+		for (j = i + 1; j < tamCliente; j++) //  verde
 				{
 
-			if (array[i].sueldo > array[j].sueldo) {
+			if (arrayCliente[i].sueldo > arrayCliente[j].sueldo) {
 
-				auxEstructura = array[i];
-				array[i] = array[j];
-				array[j] = auxEstructura;
+				auxCliente = arrayCliente[i];
+				arrayCliente[i] = arrayCliente[j];
+				arrayCliente[j] = auxCliente;
 			}
 		}
 	}
@@ -311,14 +356,19 @@ int OrdenarPorFloatAscUnCliente(eCliente array[], int tam) {
 	return OK;
 }
 
-/*
- * \brief
- * \return
+/**
+ * @brief modifica un eCliente mediante su id
  *
+ * @param arrayCliente
+ * @param tamCliente
+ * @param valorOcupado
+ * @param valorLibre
+ *
+ * @return retorno
  */
 
-int ModificarCliente(eCliente arrayEstructura[], int tamEstructura,
-		int valorOcupado, int valorLibre) {
+int ModificarCliente(eCliente arrayCliente[], int tamCliente, int valorOcupado,
+		int valorLibre) {
 
 	int retorno = ERROR;
 	int valorBuscado;
@@ -329,8 +379,8 @@ int ModificarCliente(eCliente arrayEstructura[], int tamEstructura,
 	GetInt(&valorBuscado, "\nIngrese el ID a modificar: \n", "ID INVALIDO!!!",
 			1, 6666, 2);
 
-	indiceEncontrado = BuscarIdDeCliente(arrayEstructura, tamEstructura,
-			valorBuscado, OCUPADO);
+	indiceEncontrado = BuscarIdDeCliente(arrayCliente, tamCliente, valorBuscado,
+	OCUPADO);
 
 	if (indiceEncontrado != ERROR) {
 
@@ -338,25 +388,25 @@ int ModificarCliente(eCliente arrayEstructura[], int tamEstructura,
 
 			LimpiarPantalla();
 			printf("\n======ID %d ENCONTRADO======", valorBuscado);
-			MostrarClienteMedianteIndice(arrayEstructura, indiceEncontrado,
+			MostrarClienteMedianteIndice(arrayCliente, indiceEncontrado,
 					valorOcupado);
 			opcionElegidaMenu = ModificarClienteSubMenu();
 
 			switch (opcionElegidaMenu) {
 			case 1:
-				GetChar(arrayEstructura[indiceEncontrado].nombre,
+				GetChar(arrayCliente[indiceEncontrado].nombre,
 						"Ingrese el nombre a modificar", "Nombre invalido", 'a',
 						'z', 2);
 				break;
 
 			case 2:
-				GetFloat(&arrayEstructura[indiceEncontrado].sueldo,
+				GetFloat(&arrayCliente[indiceEncontrado].sueldo,
 						"Ingrese el sueldo a modificar", "sueldo invalido",
 						1500, 80000, 2);
 				break;
 
 			case 3:
-				GetInt(&arrayEstructura[indiceEncontrado].edad,
+				GetInt(&arrayCliente[indiceEncontrado].edad,
 						"Ingrese el edad a modificar", "edad invalido", 18, 70,
 						2);
 				break;
@@ -369,12 +419,12 @@ int ModificarCliente(eCliente arrayEstructura[], int tamEstructura,
 				if (elejirEntreDosOpcionesConPuntero(auxEstado,
 						"Ingrese 'baja' para dar de baja o 'alta' para dar de alta",
 						"baja", "alta") == OPCIONUNO) {
-					arrayEstructura[indiceEncontrado].estado = LIBRE;
+					arrayCliente[indiceEncontrado].estado = LIBRE;
 					break;
 				}
 
 				if (ConfirmacionDeCambios() == ACEPTO) {
-					arrayEstructura[indiceEncontrado].estado = OCUPADO;
+					arrayCliente[indiceEncontrado].estado = OCUPADO;
 				}
 
 				break;
@@ -394,24 +444,25 @@ int ModificarCliente(eCliente arrayEstructura[], int tamEstructura,
 }
 
 /**
- * \brief Busca un valor int en la variable int de una estructura.
+ *@brief Busca el id de una eCliente, compara su estado con el
+ * estado ingresado en la llamada.
  *
- * \param eAlumno listado[]                La estructura donde trabajar.
- * \param int tam                          El numero de arrays de la estructura.
- * \param int valorBuscado                 El int que deseamos que busque en la variable del array de estructura.
- * \return int index                       Devuelve -322 si no se encontró nada  o la posicion dentro del array donde se encontró el int
+ * \param eAlumno arrayCliente[]                La estructura donde trabajar.
+ * \param int tamCliente                          El numero de arrays de la estructura.
+ * \param int valorBuscado                 El int que deseamos que busque en la variable del arrayCliente de estructura.
+ * \return int index                       Devuelve -322 si no se encontró nada  o la posicion dentro del arrayCliente donde se encontró el int
  */
 
-int BuscarIdDeCliente(eCliente estructura[], int tamEstructura,
-		int valorBuscado, int valorEstadoParaBuscar) {
+int BuscarIdDeCliente(eCliente arrayCliente[], int tamCliente, int valorBuscado,
+		int valorEstadoParaBuscar) {
 
 	int i;
 	int retorno = ERROR;
 
-	for (i = 0; i < tamEstructura; i++) {
-		if ((estructura[i].estado == valorEstadoParaBuscar
+	for (i = 0; i < tamCliente; i++) {
+		if ((arrayCliente[i].estado == valorEstadoParaBuscar
 				|| valorEstadoParaBuscar == -1)
-				&& estructura[i].idCliente == valorBuscado) {
+				&& arrayCliente[i].idCliente == valorBuscado) {
 			retorno = i;
 			break;
 		}
@@ -420,66 +471,117 @@ int BuscarIdDeCliente(eCliente estructura[], int tamEstructura,
 	return retorno;
 }
 
-/*
- * \brief
- * \return
+/**
+ *@brief genera un numero autoincremental utilizado para dar
+ * el id la entidad eCliente
  *
+ * @return generarIdDeCliente
  */
+
 int GenerarIdDeCliente() {
 	static int generarIdDeCliente = 0;
 	generarIdDeCliente++;
 	return generarIdDeCliente;
 }
 
+/**
+ * @brief Busca el numero maximo de mascotas asociadas y almacenadas anteriormente en la
+ * variable cantMascotasAsociadas
+ *
+ * @param arrayClientes
+ * @param tamClientes
+ * @param valorEstado
+ *
+ * @return indiceMaximo
+ */
 
-int BuscarElMaximoDeMascotasEnCliente(eCliente arrayClientes[], int tamClientes, int valorEstado) {
+int BuscarElMaximoDeMascotasEnCliente(eCliente arrayClientes[], int tamClientes,
+		int valorEstado) {
 
 	int i;
 	int maxInt;
-	int indiceMaximo=ERROR;
+	int indiceMaximo = ERROR;
 
 	for (i = 0; i < tamClientes; i++) {
-		if ((arrayClientes[i].cantMascotasAsociadas > maxInt && arrayClientes[i].estado==valorEstado ) || (valorEstado ==INDIFERENTE || i == 0)) {
+		if ((arrayClientes[i].cantMascotasAsociadas > maxInt
+				&& arrayClientes[i].estado == valorEstado)
+				|| (valorEstado == INDIFERENTE || i == 0)) {
 			maxInt = arrayClientes[i].cantMascotasAsociadas;
-			indiceMaximo=i;
+			indiceMaximo = i;
 		}
 	}
 
 	return indiceMaximo;
 }
 
-int BuscarElIntMaximoEnCliente(eCliente arrayClientes[], int tamClientes, int valorEstado) {
+/**
+ * @brief Busca el numero maximo de un array  eMascota
+ * y devuelve el indice con el mayor.
+ *
+ * @param arrayClientes
+ * @param tamClientes
+ * @param valorEstado
+ *
+ * @return indiceMaximo
+ */
+
+int BuscarElIntMaximoEnCliente(eCliente arrayClientes[], int tamClientes,
+		int valorEstado) {
 
 	int i;
 	int maxInt;
-	int indiceMaximo=ERROR;
+	int indiceMaximo = ERROR;
 
 	for (i = 0; i < tamClientes; i++) {
-		if ((arrayClientes[i].cantMascotasAsociadas > maxInt && arrayClientes[i].estado==valorEstado ) || (valorEstado ==INDIFERENTE || i == 0)) {
+		if ((arrayClientes[i].cantMascotasAsociadas > maxInt
+				&& arrayClientes[i].estado == valorEstado)
+				|| (valorEstado == INDIFERENTE || i == 0)) {
 			maxInt = arrayClientes[i].cantMascotasAsociadas;
-			indiceMaximo=i;
+			indiceMaximo = i;
 		}
 	}
 
 	return indiceMaximo;
 }
+
+/**
+ *  * @brief busca el flotante mayor en una variable de un array eCliente
+ *
+ * @param arrayClientes
+ * @param tamClientes
+ * @param valorEstado
+ *
+ * @return indiceMaximo
+ */
 
 // ESTO SE PUEDE MEJORAR, PUEDO HACER QUE DETECTE SOLO SI ES FLOAT O INT
-int BuscarElFloatMaximoEnCliente(eCliente arrayClientes[], int tamClientes, int valorEstado) {
+int BuscarElFloatMaximoEnCliente(eCliente arrayClientes[], int tamClientes,
+		int valorEstado) {
 
 	int i;
 	float maxFloat;
-	int indiceMaximo=ERROR;
+	int indiceMaximo = ERROR;
 
 	for (i = 0; i < tamClientes; i++) {
-		if ((arrayClientes[i].sueldo > maxFloat && arrayClientes[i].estado==valorEstado ) || (valorEstado ==INDIFERENTE || i == 0)) {
+		if ((arrayClientes[i].sueldo > maxFloat
+				&& arrayClientes[i].estado == valorEstado)
+				|| (valorEstado == INDIFERENTE || i == 0)) {
 			maxFloat = arrayClientes[i].sueldo;
-			indiceMaximo=i;
+			indiceMaximo = i;
 		}
 	}
 
 	return indiceMaximo;
 }
+
+/**
+ * @brief acumula flotantes de una variable de un array eCliente
+ *
+ * @param arrayClientes
+ * @param tamClientes
+ *
+ * @return acumulador
+ */
 
 float AcumularNumeroDeCliente(eCliente arrayClientes[], int tamClientes) {
 
@@ -498,6 +600,16 @@ float AcumularNumeroDeCliente(eCliente arrayClientes[], int tamClientes) {
 	return acumulador;
 }
 
+/**
+ * @brief acumula las variables de un array de eCliente,cuenta la
+ * cantidad de estados ocupados dentro de ella y saca un promedio
+ *
+ * @param arrayClientes
+ * @param tamClientes
+ *
+ * @return numeroAcumulado
+ */
+
 float PromediarNumeroDeCliente(eCliente arrayClientes[], int tamClientes) {
 
 	float numeroAcumulado;
@@ -513,6 +625,16 @@ float PromediarNumeroDeCliente(eCliente arrayClientes[], int tamClientes) {
 	numeroAcumulado = (float) numeroAcumulado / contadorDeEstadosOcupados;
 	return numeroAcumulado;
 }
+
+/**
+ * @brief cuenta la cantidad de estados dependiendo lo ingresado en valorDeEstado
+ * de un array eCliente
+ *
+ * @param arrayClientes
+ * @param tamClientes
+ * @param valorDeEstado
+ * @return
+ */
 
 int ContarEstadoDeCliente(eCliente arrayClientes[], int tamClientes,
 		int valorDeEstado) {
@@ -532,6 +654,17 @@ int ContarEstadoDeCliente(eCliente arrayClientes[], int tamClientes,
 	return contadorEstados;
 
 }
+
+/**
+ * @brief cuenta la cantidad de estados igual a valorParaContar en una
+ *  variable de un array eCliente
+ *
+ * @param arrayClientes
+ * @param tamClientes
+ * @param valorParaContar
+ *
+ * @return contador
+ */
 
 int ContarNumeroMayorEnCliente(eCliente arrayClientes[], int tamClientes,
 		int valorParaContar) {

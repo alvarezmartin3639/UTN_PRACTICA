@@ -5,19 +5,36 @@
  *      Author: kenyn
  */
 
-#include "ClienteMascota.h"
+#include "Cliente.h"
+#include "Mascota.h"
 
 #ifndef MENU_H_
 #define MENU_H_
 
 int MostrarMenu();
-int OrdenarEstructuraSubMenu();
-void CargarEstructuraMenu(eCliente[], int);
-void MostrarEstructuraMenu(eCliente[], int);
-void OrdenarEstructuraPorLegajoAscDespuesPorNombreAscSubMenu(eCliente[], int);
-void OrdenarEstructuraPorSueldoSubMenu(eCliente[], int);
-void EliminarEstructuraMenu(eCliente [], int , eMascota [], int , int );
-void ModificarEstructuraMenu(eCliente[], int, int, int);
+
+int OrdenarClienteSubMenu();
+
+void CargarClienteMenu(eCliente[], int);
+
+void CargarMascotaMenu(eCliente [], int , eMascota [], int );
+
+void MostrarClienteMenu(eCliente[], int);
+
+void OrdenarClientePorLegajoyPorNombreSubMenu(eCliente[], int);
+
+void OrdenarClientePorSueldoSubMenu(eCliente[], int);
+
+void EliminarClienteMenu(eCliente[], int, eMascota[], int, int);
+
+void EliminarMascotaMenu(eMascota [], int , int );
+
+void ModificarClienteMenu(eCliente[], int, int, int);
+
+void ModificarMascotaMenu(eCliente [], int , eMascota [], int ,
+		int , int );
+
 int ModificarClienteSubMenu();
+
 int ModificarMascotaSubMenu();
 #endif /* MENU_H_ */
