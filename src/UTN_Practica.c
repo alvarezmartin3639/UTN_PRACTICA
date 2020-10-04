@@ -11,6 +11,7 @@
 #include <stdio.h>
 
 #include "Cliente.h"
+#include "ClienteMascota.h"
 #include "FuncionesGenerales.h"
 #include "Mascota.h"
 #include "Menu.h"
@@ -29,6 +30,8 @@ int main(void) {
 
 	HardcodeoMascota(mascotas, TMASCOTAS);
 	HardcodeoCliente(clientes, TCLIENTES);
+
+	ClienteConMasMascota(clientes, TCLIENTES, mascotas, TMASCOTAS);
 
 	do {
 		opcionElegida = MostrarMenu();
@@ -57,7 +60,7 @@ int main(void) {
 
 		case 4:
 			EliminarClienteMenu(clientes, TCLIENTES, mascotas, TMASCOTAS,
-					OCUPADO);
+			OCUPADO);
 			break;
 
 		case 5:
@@ -69,16 +72,25 @@ int main(void) {
 			break;
 		case 7:
 			ModificarMascotaMenu(clientes, TCLIENTES, mascotas, TMASCOTAS,
-					OCUPADO, LIBRE);
+			OCUPADO, LIBRE);
 			break;
 		case 8:
 			BajaDeMascota(mascotas, TMASCOTAS, OCUPADO);
+			break;
+
+		case 9:
+			MostrarMascotasConSuClienteMenu(clientes, TCLIENTES, mascotas,
+					TMASCOTAS);
+			break;
+
+		case 10:
+			MostrarClienteConSusMascotasMenu(clientes, TCLIENTES, mascotas,
+					TMASCOTAS);
 			break;
 
 		default:
 			printf("\n****OPCION NO VALIDA...****\n");
 			break;
 		}
-	} while (opcionElegida != 9);
-
+	} while (opcionElegida != 11);
 }

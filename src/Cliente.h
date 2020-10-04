@@ -20,7 +20,7 @@ typedef struct {
 } eCliente;
 
 int InicializarCliente(eCliente[], int, int);
-void HardcodeoCliente(eCliente[], int);
+int HardcodeoCliente(eCliente[], int);
 
 //ALTA
 int AltaDeCliente(eCliente[], int);
@@ -50,15 +50,14 @@ int OrdenarPorFloatAscUnCliente(eCliente[], int);
 int BuscarIdDeCliente(eCliente[], int, int, int);
 int BuscarEstadoDeCliente(eCliente[], int, int);
 
-int BuscarElMaximoDeMascotasEnCliente(eCliente [], int , int );
-int BuscarElIntMaximoEnCliente(eCliente [], int , int);
-int BuscarElFloatMaximoEnCliente(eCliente [], int , int );
+int BuscarElMaximoDeMascotasEnCliente(eCliente[], int, int[], int);
+int BuscarElIntMaximoEnCliente(eCliente[], int, int);
+int BuscarElFloatMaximoEnCliente(eCliente[], int, int);
 
-float AcumularNumeroDeCliente(eCliente [], int );
-float PromediarNumeroDeCliente(eCliente [], int );
+float AcumularNumeroDeCliente(eCliente[], int);
+float PromediarNumeroDeCliente(eCliente[], int);
 
-int ContarEstadoDeCliente(eCliente [], int , int );
-int ContarClienteConEdadMayoraX(eCliente  [],int , int );
-
+int ContarEstadoDeCliente(eCliente[], int, int);
+int ContarClienteConEdadMayoraX(eCliente[], int, int);
 
 #endif /* CLIENTE_H_ */

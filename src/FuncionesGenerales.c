@@ -134,7 +134,9 @@ int ConfirmacionDeCambios() {
 	if (respuestaDeseaContinuar == NOACEPTO) {
 
 		LimpiarPantalla();
-	  ElejirEntreDosOpciones("\n****Cambios no guardados, presione 'ENTER' para continuar.****","","exit");
+		ElejirEntreDosOpciones(
+				"\n****Cambios no guardados, presione 'ENTER' para continuar.****",
+				"", "exit");
 		retorno = NOACEPTO;
 	}
 
@@ -172,17 +174,15 @@ int ContarCaracteresDeUnEntero() {
  *
  * @return void
  */
-void PresionarEnterParaContinuar(){
 
+void PresionarEnterParaContinuar() {
 
 	char bufferUsuario[10];
-	do{
-		FgetsComprimido(bufferUsuario,"\n****Presione 'enter' para continuar*****",10);
+	do {
+		FgetsComprimido(bufferUsuario,
+				"\n****Presione 'enter' para continuar*****", 10);
 
-	}while(strcmp(bufferUsuario,"")!=0);
-
-
+	} while (strcmp(bufferUsuario, "") != 0);
 
 }
-
 

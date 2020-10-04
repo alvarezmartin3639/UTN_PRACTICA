@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "Arrays.h"
 #include "Menu.h"
 #include "Validaciones.h"
 
@@ -24,36 +25,39 @@
  * @return void
  */
 
-void MostrarClientesConSusMascotas(eCliente listaCliente[], int tamCliente,
+int MostrarClientesConSusMascota(eCliente listaCliente[], int tamCliente,
 		eMascota listaMascota[], int tamMascota) {
 
+	int retorno = OK;
 	int i;
 	int j;
-	int flagTieneAlgoAsociado;
+	int flagTieneAlgoCliente;
 
 	for (i = 0; i < tamCliente; i++) {
-		printf("\n\n\n========Cliente %s========", listaCliente[i].nombre);
-
-		CabezeraMostrarMascota();
 
 		if (listaCliente[i].estado == OCUPADO) {
+			printf("\n\n\n========Cliente %s========", listaCliente[i].nombre);
+			CabezeraMostrarMascota();
 
 			//BANDERA ACUMULADORA PARA VER SI TIENE Y LA CANTIDAD DE ENTIDADES ASOSCIADAS
-			flagTieneAlgoAsociado = 0;
+			flagTieneAlgoCliente = 0;
 
 			for (j = 0; j < tamMascota; j++) {
-				//SE SUMA UNO SI ES ASOCIADO
-				flagTieneAlgoAsociado += MostrarMascotasQueTenganCliente(
+				//SE SUMA UNO SI ES CLIENTE
+				flagTieneAlgoCliente += MostrarMascotaQueTenganCliente(
 						listaCliente, tamCliente, listaMascota, tamMascota, i,
-						j, INDIFERENTE);
+						j, OCUPADO);
 
 			}
 		}
-		if (flagTieneAlgoAsociado == 0) {
-			printf("\n****No tiene nada asociado a el.****");
+		if (flagTieneAlgoCliente == 0) {
+			printf("\n****No tiene mascotas.****");
+			retorno = ERROR;
 		}
 
 	}
+
+	return retorno;
 
 }
 
@@ -68,28 +72,28 @@ void MostrarClientesConSusMascotas(eCliente listaCliente[], int tamCliente,
  * @param indiceMascota
  * @param valorEstado
  *
- * @return flagTieneAlgoAsociado
+ * @return flagTieneAlgoCliente
  */
 
-int MostrarMascotasQueTenganCliente(eCliente listaCliente[], int tamCliente,
+int MostrarMascotaQueTenganCliente(eCliente listaCliente[], int tamCliente,
 		eMascota listaMascota[], int tamMascota, int indiceCliente,
 		int indiceMascota, int valorEstado) {
 
-	int flagTieneAlgoAsociado;
+	int flagTieneAlgoCliente;
 
-	flagTieneAlgoAsociado = 0;
+	flagTieneAlgoCliente = 0;
 
 	if (listaMascota[indiceMascota].idCliente
 			== listaCliente[indiceCliente].idCliente) {
 		MostrarMascotaMedianteIndice(listaMascota, indiceMascota, valorEstado);
-		flagTieneAlgoAsociado++;
+		flagTieneAlgoCliente++;
 	}
 
-	return flagTieneAlgoAsociado;
+	return flagTieneAlgoCliente;
 }
 
 /**
- * @brief imprime las mascotas junto a sus clientes asociados
+ * @brief imprime las mascotas junto a sus clientes clientes
  *
  * @param listaCliente
  * @param tamCliente
@@ -99,22 +103,24 @@ int MostrarMascotasQueTenganCliente(eCliente listaCliente[], int tamCliente,
  * @return void
  */
 
-void MostrarMascotasConSusClientes(eCliente listaCliente[], int tamCliente,
+int MostrarMascotasConSuCliente(eCliente listaCliente[], int tamCliente,
 		eMascota listaMascota[], int tamMascota) {
 
 	int i;
 	int j;
 
-	CabezeraMostrarMascotaConSusClientes();
+	CabezeraMostrarMascotaConSusCliente();
 	for (i = 0; i < tamMascota; i++) {
 		if (listaMascota[i].estado == OCUPADO) {
 			for (j = 0; j < tamCliente; j++) {
-				MostrarClientesQueTenganMascotas(listaCliente, tamCliente,
+				MostrarClientesQueTenganMascota(listaCliente, tamCliente,
 						listaMascota, tamMascota, j, i, OCUPADO);
 			}
 		}
 
 	}
+
+	return OK;
 }
 
 /**
@@ -128,16 +134,16 @@ void MostrarMascotasConSusClientes(eCliente listaCliente[], int tamCliente,
  * @param indiceMascota
  * @param valorEstado
  *
- * @return flagTieneAlgoAsociado
+ * @return flagTieneAlgoCliente
  */
 
-int MostrarClientesQueTenganMascotas(eCliente listaCliente[], int tamCliente,
+int MostrarClientesQueTenganMascota(eCliente listaCliente[], int tamCliente,
 		eMascota listaMascota[], int tamMascota, int indiceCliente,
 		int indiceMascota, int valorEstado) {
 
-	int flagTieneAlgoAsociado;
+	int flagTieneAlgoCliente;
 
-	flagTieneAlgoAsociado = 0;
+	flagTieneAlgoCliente = 0;
 
 	if (listaMascota[indiceMascota].estado == valorEstado
 			&& listaMascota[indiceMascota].idCliente
@@ -149,10 +155,10 @@ int MostrarClientesQueTenganMascotas(eCliente listaCliente[], int tamCliente,
 				listaCliente[indiceCliente].nombre,
 				listaCliente[indiceCliente].edad,
 				listaCliente[indiceCliente].sueldo);
-		flagTieneAlgoAsociado++;
+		flagTieneAlgoCliente++;
 	}
 
-	return flagTieneAlgoAsociado;
+	return flagTieneAlgoCliente;
 }
 
 /**
@@ -160,7 +166,7 @@ int MostrarClientesQueTenganMascotas(eCliente listaCliente[], int tamCliente,
  *
  * @return void
  */
-void CabezeraMostrarMascotaConSusClientes() {
+void CabezeraMostrarMascotaConSusCliente() {
 	printf("\n%-12s %-15s %-13s %-20s %-5s %-14s", "ID MASCOTA",
 			"NOMBRE MASCOTA", "ID CLIENTE", "NOMBRE CLIENTE", "EDAD", "SUELDO");
 
@@ -180,12 +186,12 @@ void CabezeraMostrarMascotaConSusClientes() {
 int AltaDeMascota(eCliente listaCliente[], int tamCliente,
 		eMascota listaMascota[], int tamMascota) {
 
-	eMascota auxEstructura;
+	eMascota auxMascota;
 	int indiceDelEspacioLibre;
 	int retorno = ERROR;
 	char deseaContinuar;
 
-	deseaContinuar='y';
+	deseaContinuar = 'y';
 
 	do {
 		LimpiarPantalla();
@@ -195,12 +201,12 @@ int AltaDeMascota(eCliente listaCliente[], int tamCliente,
 		LIBRE);
 		if (indiceDelEspacioLibre != ERROR) {
 
-			CrearAuxiliaresDeMascota(&auxEstructura, listaCliente, tamCliente);
+			CrearAuxiliaresDeMascota(&auxMascota, listaCliente, tamCliente);
 			LimpiarPantalla();
-			MostrarUnaUnicaMascota(auxEstructura, OCUPADO);
+			MostrarUnaUnicaMascota(auxMascota, OCUPADO);
 
 			if (ConfirmacionDeCambios() == OPCIONUNO) {
-				RemplazarAuxiliaresyCrearMascota(listaMascota, auxEstructura,
+				RemplazarAuxiliaresyCrearMascota(listaMascota, auxMascota,
 						indiceDelEspacioLibre,
 						OCUPADO);
 
@@ -227,28 +233,28 @@ int AltaDeMascota(eCliente listaCliente[], int tamCliente,
 /**
  * @brief  crea una eMascota en un auxiliar con puntero y la asocia a un cliente
  *
- * @param auxEstructura
+ * @param auxMascota
  * @param listaCliente
  * @param tamCliente
  *
  * @return retorno
  */
 
-int CrearAuxiliaresDeMascota(eMascota *auxEstructura, eCliente listaCliente[],
+int CrearAuxiliaresDeMascota(eMascota *auxMascota, eCliente listaCliente[],
 		int tamCliente) {
 
 	int retorno = ERROR;
 
-	GetChar(auxEstructura->nombre, "\nIngrese un nombre: ", "Error!!", 'a', 'z',
+	GetChar(auxMascota->nombre, "\nIngrese un nombre: ", "Error!!", 'a', 'z',
 			2);
-	GetFloat(&auxEstructura->peso, "\nIngrese un peso: ",
+	GetFloat(&auxMascota->peso, "\nIngrese un peso: ",
 			"Error peso invalido.", 1, 100000, 2);
-	GetInt(&auxEstructura->edad, "\nIngrese una edad: ", "Error edad invalido",
+	GetInt(&auxMascota->edad, "\nIngrese una edad: ", "Error edad invalido",
 			0, 100, 2);
 
-	auxEstructura->idMascota = 0;
-	retorno = AsociarMascotaConCliente(auxEstructura, listaCliente, tamCliente);
-	auxEstructura->estado = OCUPADO;
+	auxMascota->idMascota = 0;
+	retorno = AsociarMascotaConCliente(auxMascota, listaCliente, tamCliente);
+	auxMascota->estado = OCUPADO;
 	return retorno;
 }
 
@@ -344,14 +350,14 @@ int ModificarMascota(eMascota arrayMascota[], int tamMascota,
 /**
  * @brief asocia una mascota con un cliente mediante su id
  *
- * @param auxEstructura
+ * @param auxMascota
  * @param listaCliente
  * @param tamCliente
  *
  * @return retorno
  */
 
-int AsociarMascotaConCliente(eMascota *auxEstructura, eCliente listaCliente[],
+int AsociarMascotaConCliente(eMascota *auxMascota, eCliente listaCliente[],
 		int tamCliente) {
 
 	int retorno = ERROR;
@@ -366,7 +372,7 @@ int AsociarMascotaConCliente(eMascota *auxEstructura, eCliente listaCliente[],
 				"Error eso no es un numero valido", 0, 1000, 2);
 		if (BuscarIdDeCliente(listaCliente, tamCliente, auxId, OCUPADO) != ERROR) {
 			//SE REMPLAZAN
-			auxEstructura->idCliente = auxId;
+			auxMascota->idCliente = auxId;
 			strcpy(condicionParaContinuar, "no");
 			retorno = OK;
 
@@ -414,7 +420,7 @@ int BajaDeCliente(eCliente arrayCliente[], int tamCliente,
 
 		if (ConfirmacionDeCambios() == ACEPTO) {
 
-			EliminarClienteJuntoSusMascotas(arrayCliente, tamCliente,
+			EliminarClienteJuntoSusMascota(arrayCliente, tamCliente,
 					arrayMascota, tamMascota, indiceIdParaEliminar,
 					arrayCliente[indiceIdParaEliminar].idCliente, OCUPADO);
 
@@ -447,17 +453,17 @@ int BajaDeCliente(eCliente arrayCliente[], int tamCliente,
  * @param idCliente
  * @param valorOcupado
  *
- * @return contadorMascotasEliminadas
+ * @return contadorMascotaEliminadas
  */
 
-int EliminarClienteJuntoSusMascotas(eCliente arrayCliente[], int tamCliente,
+int EliminarClienteJuntoSusMascota(eCliente arrayCliente[], int tamCliente,
 		eMascota arrayMascota[], int tamMascota, int indiceDelCliente,
 		int idCliente, int valorOcupado) {
 
 	int indiceMascotaParaEliminar;
-	int contadorMascotasEliminadas;
+	int contadorMascotaEliminadas;
 
-	contadorMascotasEliminadas = 0;
+	contadorMascotaEliminadas = 0;
 
 	arrayCliente[indiceDelCliente].estado = LIBRE;
 
@@ -465,11 +471,11 @@ int EliminarClienteJuntoSusMascotas(eCliente arrayCliente[], int tamCliente,
 		indiceMascotaParaEliminar = BuscarIdDeMascota(arrayMascota, tamMascota,
 				idCliente, OCUPADO);
 
-		contadorMascotasEliminadas++;
+		contadorMascotaEliminadas++;
 	} while (indiceMascotaParaEliminar != ERROR);
 
 	//DEVUELVE LA CANTIDAD DE MASCOTAS E ITERACIONES.
-	return contadorMascotasEliminadas;
+	return contadorMascotaEliminadas;
 }
 
 /**
@@ -482,26 +488,37 @@ int EliminarClienteJuntoSusMascotas(eCliente arrayCliente[], int tamCliente,
  * @param arrayMascota
  * @param tamMascota
  *
- * @return indiceDeClienteConMasMascotas
+ * @return indiceDeClienteConMasMascota
  */
 
-int ClienteConMasMascotas(eCliente arrayCliente[], int tamCliente,
+int ClienteConMasMascota(eCliente arrayCliente[], int tamCliente,
 		eMascota arrayMascota[], int tamMascota) {
 
-	int indiceDeClienteConMasMascotas = ERROR;
+	int indiceDeClienteConMasMascota = ERROR;
+	int i;
+	int arrayParaleloDeCliente[TCLIENTES];
 
-	ContarMascotaRelacionadaConCliente(arrayCliente, tamCliente, arrayMascota,
-			tamMascota, OCUPADO);
+	for (i = 0; i < tamCliente; i++) {
+		if (arrayCliente[i].estado == OCUPADO) {
 
-	indiceDeClienteConMasMascotas = BuscarElMaximoDeMascotasEnCliente(
-			arrayCliente, tamCliente, OCUPADO);
+			arrayParaleloDeCliente[i] =
+					ContarNumeroDeMascotaRelacionadaConCliente(arrayCliente,
+							tamCliente, arrayMascota, tamMascota,
+							arrayCliente[i].idCliente,
+							OCUPADO);
+		}
+	}
 
-	return indiceDeClienteConMasMascotas;
+	indiceDeClienteConMasMascota = BuscarElMaximoDeMascotasEnCliente(
+			arrayCliente, tamCliente, arrayParaleloDeCliente, OCUPADO);
+
+	//printf("EL  CLIENTE CON MAS MASCOTAS ES INDICE %d NOMBRE %s ",indiceDeClienteConMasMascota,arrayCliente[indiceDeClienteConMasMascota].nombre);
+	return indiceDeClienteConMasMascota;
 }
 
 /**
  * @brief cuenta la cantidad de mascotas que tiene cada cliente y luego
- * guarda ese numero en una variable dentro de su entidad.
+ * guarda ese numero en una variable
  *
  * @param arrayCliente
  * @param tamCliente
@@ -509,32 +526,26 @@ int ClienteConMasMascotas(eCliente arrayCliente[], int tamCliente,
  * @param tamMascota
  * @param valorEstado
  *
- * @return contadorDeMascotas
+ * @return contadorDeMascota
  */
 
-int ContarMascotaRelacionadaConCliente(eCliente arrayCliente[], int tamCliente,
-		eMascota arrayMascota[], int tamMascota, int valorEstado) {
-	int i;
-	int j;
-	int contadorDeMascotas;
+int ContarNumeroDeMascotaRelacionadaConCliente(eCliente arrayCliente[],
+		int tamCliente, eMascota arrayMascota[], int tamMascota,
+		int idDelCliente, int valorEstado) {
 
-	contadorDeMascotas = 0;
+	int j; //MASCOTAS
 
-	for (i = 0; i < tamCliente; i++) {
+	int contadorDeMascota;
 
-		if (arrayCliente[i].estado == valorEstado || valorEstado == -1) {
+	contadorDeMascota = 0;
 
-			for (j = 0; j < tamMascota; j++) {
+	for (j = 0; j < tamMascota; j++) {
 
-				if (arrayCliente[i].idCliente == arrayMascota[j].idCliente) {
+		if (arrayMascota[j].idCliente == idDelCliente) {
 
-					contadorDeMascotas++;
-				}
-
-			}
-			arrayCliente[i].cantMascotasAsociadas = contadorDeMascotas;
-			contadorDeMascotas = 0;
+			contadorDeMascota++;
 		}
 	}
-	return contadorDeMascotas;
+
+	return contadorDeMascota;
 }

@@ -5,11 +5,10 @@
  *      Author: kenyn
  */
 
-#include "Cliente.h"
-
 #include <stdio.h>
 #include <string.h>
 
+#include "Cliente.h"
 #include "FuncionesGenerales.h"
 #include "Mascota.h"
 #include "Menu.h"
@@ -24,7 +23,7 @@
  * @return void
  */
 
-void HardcodeoCliente(eCliente arrayCliente[], int tamCliente) {
+int HardcodeoCliente(eCliente arrayCliente[], int tamCliente) {
 
 	char nombre[TCLIENTES][50] = { "Hernesto", "Jose", "Susana", "Roberto",
 			"Pepe", "Hernan", "Isabell", "Martin" };
@@ -47,6 +46,8 @@ void HardcodeoCliente(eCliente arrayCliente[], int tamCliente) {
 		arrayCliente[i].edad = edad[i];
 		arrayCliente[i].cantMascotasAsociadas = cantMascotasAsociadas[i];
 	}
+
+	return OK;
 }
 
 /**
@@ -67,8 +68,7 @@ int AltaDeCliente(eCliente arrayCliente[], int tamCliente) {
 
 	do {
 		LimpiarPantalla();
-		printf(
-				"--------============== CARGAR ESTRUCTURA ==============--------");
+		printf("--------============== CARGAR CLIENTE ==============--------");
 
 		indiceDelEspacioLibre = BuscarEstadoDeCliente(arrayCliente, tamCliente,
 		LIBRE);
@@ -183,7 +183,7 @@ int BuscarEstadoDeCliente(eCliente arrayCliente[], int tamCliente,
 
 void CabezeraMostrarCliente() {
 
-	printf("%-13s %-20s %-5s %-14s %-10s", "ID CLIENTE", "NOMBRE", "EDAD",
+	printf("\n%-13s %-20s %-5s %-14s %-10s", "ID CLIENTE", "NOMBRE", "EDAD",
 			"SUELDO", "ESTADO");
 }
 
@@ -388,6 +388,7 @@ int ModificarCliente(eCliente arrayCliente[], int tamCliente, int valorOcupado,
 
 			LimpiarPantalla();
 			printf("\n======ID %d ENCONTRADO======", valorBuscado);
+			CabezeraMostrarCliente();
 			MostrarClienteMedianteIndice(arrayCliente, indiceEncontrado,
 					valorOcupado);
 			opcionElegidaMenu = ModificarClienteSubMenu();
@@ -395,31 +396,29 @@ int ModificarCliente(eCliente arrayCliente[], int tamCliente, int valorOcupado,
 			switch (opcionElegidaMenu) {
 			case 1:
 				GetChar(arrayCliente[indiceEncontrado].nombre,
-						"Ingrese el nombre a modificar", "Nombre invalido", 'a',
-						'z', 2);
+						"Ingrese el nombre a modificar: ", "Nombre invalido",
+						'a', 'z', 2);
 				break;
 
 			case 2:
 				GetFloat(&arrayCliente[indiceEncontrado].sueldo,
-						"Ingrese el sueldo a modificar", "sueldo invalido",
+						"Ingrese el sueldo a modificar: ", "sueldo invalido",
 						1500, 80000, 2);
 				break;
 
 			case 3:
 				GetInt(&arrayCliente[indiceEncontrado].edad,
-						"Ingrese el edad a modificar", "edad invalido", 18, 70,
-						2);
+						"Ingrese el edad a modificar: ", "edad invalido", 18,
+						70, 2);
 				break;
 
 			case 4:
-				elejirEntreDosOpcionesConPuntero(auxEstado,
-						"Ingrese 'baja' para dar de baja o 'alta' para dar de alta",
-						"baja", "alta");
 
 				if (elejirEntreDosOpcionesConPuntero(auxEstado,
 						"Ingrese 'baja' para dar de baja o 'alta' para dar de alta",
 						"baja", "alta") == OPCIONUNO) {
 					arrayCliente[indiceEncontrado].estado = LIBRE;
+					opcionElegidaMenu = 5;
 					break;
 				}
 
@@ -445,7 +444,7 @@ int ModificarCliente(eCliente arrayCliente[], int tamCliente, int valorOcupado,
 
 /**
  *@brief Busca el id de una eCliente, compara su estado con el
- * estado ingresado en la llamada.
+ * estado ingresado en la mascota.
  *
  * \param eAlumno arrayCliente[]                La estructura donde trabajar.
  * \param int tamCliente                          El numero de arrays de la estructura.
@@ -485,8 +484,7 @@ int GenerarIdDeCliente() {
 }
 
 /**
- * @brief Busca el numero maximo de mascotas asociadas y almacenadas anteriormente en la
- * variable cantMascotasAsociadas
+ * @brief Busca el numero maximo de mascotas asociadas y almacenadas anteriormente en el array paralelo
  *
  * @param arrayClientes
  * @param tamClientes
@@ -496,17 +494,17 @@ int GenerarIdDeCliente() {
  */
 
 int BuscarElMaximoDeMascotasEnCliente(eCliente arrayClientes[], int tamClientes,
-		int valorEstado) {
+		int arrayParalelo[], int valorEstado) {
 
 	int i;
 	int maxInt;
 	int indiceMaximo = ERROR;
 
 	for (i = 0; i < tamClientes; i++) {
-		if ((arrayClientes[i].cantMascotasAsociadas > maxInt
-				&& arrayClientes[i].estado == valorEstado)
+		if ((arrayParalelo[i] > maxInt && arrayClientes[i].estado == valorEstado)
 				|| (valorEstado == INDIFERENTE || i == 0)) {
-			maxInt = arrayClientes[i].cantMascotasAsociadas;
+
+			maxInt = arrayParalelo[i];
 			indiceMaximo = i;
 		}
 	}

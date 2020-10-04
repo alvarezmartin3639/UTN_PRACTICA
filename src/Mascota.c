@@ -22,7 +22,7 @@
  * @return void
  */
 
-void HardcodeoMascota(eMascota arrayMascota[], int tamMascota) {
+int HardcodeoMascota(eMascota arrayMascota[], int tamMascota) {
 
 	char nombre[TMASCOTAS][50] = { "Lucia", "Luis", "Fernanda", "Fernando",
 			"Juana", "Juan", "Ludmila", "Lucero" };
@@ -30,7 +30,7 @@ void HardcodeoMascota(eMascota arrayMascota[], int tamMascota) {
 	int edad[TMASCOTAS] = { 18, 22, 21, 33, 11, 44, 55, 66 };
 	float sexo[TMASCOTAS] = { 'f', 'm', 'f', 'm', 'f', 'm', 'f', 'm' };
 	int idMascota[TMASCOTAS] = { 1, 2, 3, 4, 5, 6, 7, 8 };
-	int idCliente[TMASCOTAS] = { 1, 3, 2, 1, 1, 3, 4, 5 };
+	int idCliente[TMASCOTAS] = { 1, 1, 1, 7, 7, 2, 1, 1 };
 	int estado[TMASCOTAS] = { LIBRE, OCUPADO, OCUPADO, OCUPADO, OCUPADO,
 	OCUPADO,
 	OCUPADO, OCUPADO };
@@ -45,11 +45,13 @@ void HardcodeoMascota(eMascota arrayMascota[], int tamMascota) {
 		arrayMascota[i].idCliente = idCliente[i];
 		arrayMascota[i].sexo = sexo[i];
 	}
+
+	return OK;
 }
 
 /**
  *@brief Remplaza los auxiliares creados  sobre la estructura pasados
- * en la llamada
+ * en la mascota
  *
  * @param list
  * @param auxMascota
@@ -104,7 +106,7 @@ int BuscarEstadoDeMascota(eMascota arrayMascota[], int tamMascota,
 
 void CabezeraMostrarMascota() {
 
-	printf("%-13s %-13s %-20s %-5s %-14s %-5s %-10s", "ID MASCOTA",
+	printf("\n%-13s %-13s %-20s %-5s %-14s %-5s %-10s", "ID MASCOTA",
 			"ID CLIENTE", "NOMBRE", "EDAD", "PESO", "SEXO", "ESTADO");
 }
 
@@ -122,7 +124,6 @@ int MostrarListadoDeMascota(eMascota arrayMascota[], int tamMascota,
 		int valorOcupado) {
 	int i;
 	int contadorEspaciosOcupados = ERROR;
-
 	CabezeraMostrarMascota();
 
 	for (i = 0; i < tamMascota; i++) {
@@ -301,6 +302,8 @@ int BajaDeMascota(eMascota arrayMascota[], int tamMascota, int valorOcupado) {
 			OCUPADO);
 
 	if (indiceLegajoParaEliminar != ERROR) {
+
+		CabezeraMostrarMascota();
 		MostrarMascotaMedianteIndice(arrayMascota, indiceLegajoParaEliminar,
 				valorOcupado);
 
@@ -325,7 +328,7 @@ int BajaDeMascota(eMascota arrayMascota[], int tamMascota, int valorOcupado) {
 
 /**
  *@brief Busca el id de una eMascota, compara su estado con el
- * estado ingresado en la llamada.
+ * estado ingresado en la mascota.
  *
  * @param estructura
  * @param tamEstructura

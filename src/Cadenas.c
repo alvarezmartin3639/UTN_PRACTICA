@@ -12,7 +12,7 @@
 #include <string.h>
 
 /**
- * @brief imprime texto ingresado en la llamada a la función, captura lo ingresado en fgets y
+ * @brief imprime texto ingresado en la mascota a la función, captura lo ingresado en fgets y
  * elimina el \n
  *
  * @param pResultado

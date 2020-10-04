@@ -43,4 +43,5 @@ int ContarCaracteresDeUnEntero();
 int ContarCaracteresDeUnFlotante(float num);
 
 void PresionarEnterParaContinuar();
+
 #endif /* FUNCIONESGENERALES_H_ */

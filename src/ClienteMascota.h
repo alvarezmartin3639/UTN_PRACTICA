@@ -6,40 +6,40 @@
  */
 
 #include "Cliente.h"
-#include "Mascota.h"
 #include "FuncionesGenerales.h"
+#include "Mascota.h"
 
 #ifndef CLIENTEMASCOTA_H_
 #define CLIENTEMASCOTA_H_
 
-void MostrarClientesConSusMascotas(eCliente[], int, eMascota[], int);
+int MostrarClientesConSusMascota(eCliente[], int, eMascota[], int);
 
-int MostrarMascotasQueTenganCliente(eCliente[], int, eMascota[], int, int, int,
+int MostrarMascotaQueTenganCliente(eCliente[], int, eMascota[], int, int, int,
 		int);
 
-void MostrarMascotasConSusClientes(eCliente[], int, eMascota[], int);
+int MostrarMascotasConSuCliente(eCliente[], int, eMascota[], int);
 
-int MostrarClientesQueTenganMascotas(eCliente[], int, eMascota[], int, int, int,
+int MostrarClientesQueTenganMascota(eCliente[], int, eMascota[], int, int, int,
 		int);
 
-void CabezeraMostrarMascotaConSusClientes();
+void CabezeraMostrarMascotaConSusCliente();
 
-int AltaDeMascota(eCliente[], int, eMascota [], int);
+int AltaDeMascota(eCliente[], int, eMascota[], int);
 
-int AsociarMascotaConCliente(eMascota*, eCliente[], int );
+int AsociarMascotaConCliente(eMascota*, eCliente[], int);
 
-int CrearAuxiliaresDeMascota(eMascota*, eCliente[], int );
+int CrearAuxiliaresDeMascota(eMascota*, eCliente[], int);
 
 int ModificarMascota(eMascota[], int, eCliente[], int, int, int);
 
 int BajaDeCliente(eCliente[], int, eMascota[], int, int);
 
-int EliminarClienteJuntoSusMascotas(eCliente[], int, eMascota[], int, int, int,
+int EliminarClienteJuntoSusMascota(eCliente[], int, eMascota[], int, int, int,
 		int);
 
-int ClienteConMasMascotas(eCliente [], int , eMascota [], int );
+int ClienteConMasMascota(eCliente[], int, eMascota[], int);
 
-int ContarMascotaRelacionadaConCliente(eCliente [], int , eMascota [], int , int);
-
+int ContarNumeroDeMascotaRelacionadaConCliente(eCliente[], int, eMascota[], int,
+		int, int);
 
 #endif /* CLIENTEMASCOTA_H_ */

@@ -21,7 +21,7 @@ typedef struct {
 } eMascota;
 
 int InicializarMascota(eMascota[], int, int);
-void HardcodeoMascota(eMascota[], int);
+int HardcodeoMascota(eMascota[], int);
 
 //ALTA
 //CLIENTEMASCOTAS.h

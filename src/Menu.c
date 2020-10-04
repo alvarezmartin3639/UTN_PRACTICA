@@ -33,7 +33,9 @@ int MostrarMenu() {
 	printf("\n[6] Carga mascota. ");
 	printf("\n[7] Modificar mascota. ");
 	printf("\n[8] baja mascota. ");
-	printf("\n[9] Salir."
+	printf("\n[9] Mostrar mascotas con sus dueños ");
+	printf("\n[10] Mostrar dueños con sus mascotas ");
+	printf("\n[11] Salir."
 			"\n-------------------------------------------------------------");
 
 	printf("\n\nElije una opcion: ");
@@ -48,9 +50,10 @@ int MostrarMenu() {
  */
 
 int OrdenarClienteSubMenu() {
+
 	int opcion;
 	LimpiarPantalla();
-	printf("=======================ORDENAR EMPLEADOS=======================");
+	printf("=======================ORDENAR CLIENTES=======================");
 
 	printf("\n1- Ordenar cliente por nombre");
 	printf("\n2- Ordenar cliente por legajo");
@@ -73,14 +76,14 @@ void CargarClienteMenu(eCliente arrayCliente[], int tamCliente) {
 
 	LimpiarPantalla();
 
-	printf("--------============== CARGAR CLIENTE ==============--------");
+	printf("--------============== CARGAR ASCOCIADO ==============--------");
 
 	AltaDeCliente(arrayCliente, tamCliente);
 
 }
 
 /**
- * @brief muestra la cabezera de cargar mascota y llama a AltaDeMascota()
+ * @brief muestra la cabezera de CargarMascotaMenu y llama a AltaDeMascota()
  *
  * @param arrayCliente
  * @param tamCliente
@@ -102,7 +105,7 @@ void CargarMascotaMenu(eCliente arrayCliente[], int tamCliente,
 }
 
 /**
- * @brief muestra la cabezera de mostrar estructura y llama a MostrarListadoDeCliente
+ * @brief muestra la cabezera de MostrarClienteMenu y llama a MostrarListadoDeCliente
  *
  * @param arrayCliente
  * @param tamCliente
@@ -114,8 +117,68 @@ void MostrarClienteMenu(eCliente arrayCliente[], int tamCliente) {
 
 	LimpiarPantalla();
 	printf(
-			"--------============== MOSTRAR LISTADO DE CLIENTE ==============--------");
+			"--------============== MOSTRAR LISTADO DE ASCOCIADO ==============--------");
 	MostrarListadoDeCliente(arrayCliente, tamCliente, OCUPADO);
+	PresionarEnterParaContinuar();
+}
+
+/**
+ * @brief muestra la cabezera de MostrarMascotaMenu y llama a MostrarListadoDeMascota
+ *
+ * @param arrayMascota
+ * @param tamMascota
+ *
+ * @return void
+ */
+
+void MostrarMascotaMenu(eMascota arrayMascota[], int tamMascota) {
+
+	LimpiarPantalla();
+	printf(
+			"--------============== MOSTRAR LISTADO DE MASCOTA ==============--------");
+	MostrarListadoDeMascota(arrayMascota, tamMascota, OCUPADO);
+	PresionarEnterParaContinuar();
+}
+
+/**
+ * @brief muestra la cabezera de MostrarMascotasConSuClienteMenu y llama a MostrarMascotasConSuCliente
+ *
+ * @param arrayCliente
+ * @param tamCliente
+ * @param arrayMascota
+ * @para
+ * m tamMascota
+ */
+
+void MostrarMascotasConSuClienteMenu(eCliente arrayCliente[], int tamCliente,
+		eMascota arrayMascota[], int tamMascota) {
+
+	printf(
+			"--------============== MOSTRAR MASCOTAS CON SU DUEÑO ==============--------");
+
+	MostrarMascotasConSuCliente(arrayCliente, tamCliente, arrayMascota,
+			tamMascota);
+	PresionarEnterParaContinuar();
+
+}
+
+/**
+ * @brief muestra la cabezera de MostrarClienteConSusMascotasMenu y llama a MostrarClientesConSusMascota
+ *
+ * @param arrayCliente
+ * @param tamCliente
+ * @param arrayMascota
+ * @param tamMascota
+ */
+
+void MostrarClienteConSusMascotasMenu(eCliente arrayCliente[], int tamCliente,
+		eMascota arrayMascota[], int tamMascota) {
+
+	printf(
+			"--------============== MOSTRAR DUEÑOs CON SUS MASCOTAs ==============--------");
+	MostrarClientesConSusMascota(arrayCliente, tamCliente, arrayMascota,
+			tamMascota);
+	PresionarEnterParaContinuar();
 
 }
 
@@ -133,7 +196,7 @@ void OrdenarClientePorLegajoyPorNombreSubMenu(eCliente arrayCliente[],
 		int tamCliente) {
 	LimpiarPantalla();
 	printf(
-			"--------============== ORDENAR CLIENTE POR NOMBRE ==============--------");
+			"--------============== ORDENAR ASCOCIADO POR NOMBRE ==============--------");
 	OrdenarStringAscenIntAscenUnCliente(arrayCliente, tamCliente);
 
 }
@@ -150,7 +213,7 @@ void OrdenarClientePorLegajoyPorNombreSubMenu(eCliente arrayCliente[],
 void OrdenarClientePorSueldoSubMenu(eCliente arrayCliente[], int tamCliente) {
 	LimpiarPantalla();
 	printf(
-			"--------============== ORDENAR CLIENTE POR SUELDO ==============--------");
+			"--------============== ORDENAR ASCOCIADO POR SUELDO ==============--------");
 	OrdenarPorFloatAscUnCliente(arrayCliente, tamCliente);
 
 }
@@ -170,7 +233,7 @@ void OrdenarClientePorSueldoSubMenu(eCliente arrayCliente[], int tamCliente) {
 void EliminarClienteMenu(eCliente arrayCliente[], int tamCliente,
 		eMascota arrayMascota[], int tamMascota, int valorOcupado) {
 	LimpiarPantalla();
-	printf("--------============== ELIMINAR CLIENTE ==============--------");
+	printf("--------============== ELIMINAR ASCOCIADO ==============--------");
 	BajaDeCliente(arrayCliente, tamCliente, arrayMascota, tamMascota,
 			valorOcupado);
 }
@@ -207,7 +270,7 @@ void ModificarClienteMenu(eCliente arrayCliente[], int tamCliente,
 		int valorOcupado, int valorLibre) {
 
 	LimpiarPantalla();
-	printf("--------============== MODIFICAR CLIENTE ==============--------");
+	printf("--------============== MODIFICAR ASCOCIADO ==============--------");
 	ModificarCliente(arrayCliente, tamCliente, valorOcupado, valorLibre);
 
 }
@@ -248,7 +311,8 @@ int ModificarClienteSubMenu() {
 			"\n\n1. Información cargada en nombre."
 			"\n2. Información cargada en peso."
 			"\n3. Información cargada en edad."
-			"\n4. Guardar y salir.");
+			"\n4. Información cargada en estado"
+			"\n5. Guardar y salir.");
 
 	printf("\n\nElije una opcion: ");
 	scanf("%d", &opcionElegida);
